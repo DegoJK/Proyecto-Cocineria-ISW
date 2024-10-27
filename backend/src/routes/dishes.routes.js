@@ -4,7 +4,7 @@ import { createDish, deleteDish, getDish, getDishes, updateDish } from "../contr
 const router = Router();
 
 router
-    .get("/:id", getDish)
+    .get("/find/:id", getDish)
     .get("/all", getDishes)
     .post("/create", createDish)
     .put("/:id", updateDish)

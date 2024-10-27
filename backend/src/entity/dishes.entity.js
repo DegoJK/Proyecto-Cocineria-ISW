@@ -10,11 +10,13 @@ const PlatilloSchema = new EntitySchema({
         type: "int",
         primary: true,
         generated: true,
+        unique: true,
         },
         nombre: {
         type: "varchar",
         length: 255,
         nullable: false,
+        unique: true,
         },
         precio: {
         type: "int",
