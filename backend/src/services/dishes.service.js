@@ -32,7 +32,7 @@ export async function getDishesService() {
 
         if (!dishes || dishes.length === 0) return [null, "No hay platillos"];
 
-        const dishesData = dishes.map(({ password, ...dish }) => dish);
+        const dishesData = dishes.map(({ ...dish }) => dish);
 
         return [dishesData, null];
     } catch (error) {
