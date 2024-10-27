@@ -1,33 +1,27 @@
 "use strict";
 import { EntitySchema } from "typeorm";
 
-//esquema para la entidad platillo en la base de datos la cual contiene los campos id, nombre, precio, descripcion, imagen, createdAt y updatedAt
-const PlatilloSchema = new EntitySchema({
-  name: "Platillo",
-  tableName: "platillos",
+const OrderSchema = new EntitySchema({
+  name: "Order",
+  tableName: "orders",
   columns: {
     id: {
       type: "int",
       primary: true,
       generated: true,
     },
-    nombre: {
-      type: "varchar",
-      length: 255,
-      nullable: false,
+    orderNumber: {
+      type: "int",
+      generated: true,
     },
-    precio: {
+    tableNumber: {
       type: "int",
       nullable: false,
     },
-    descripcion: {
-      type: "text",
-      nullable: true,
-    },
-    imagen: {
+    status: {
       type: "varchar",
-      length: 255,
-      nullable: true,
+      length: 50,
+      default: "Pendiente",
     },
     createdAt: {
       type: "timestamp with time zone",
@@ -45,17 +39,17 @@ const PlatilloSchema = new EntitySchema({
     orderDishes: {
       type: "one-to-many",
       target: "OrderDish",
-      inverseSide: "platillos",
+      inverseSide: "order",
       cascade: true,
     },
   },
   indices: [
     {
-      name: "IDX_PLATILLO",
+      name: "IDX_ORDER",
       columns: ["id"],
       unique: true,
     },
   ],
 });
 
-export default PlatilloSchema;
+export default OrderSchema;
