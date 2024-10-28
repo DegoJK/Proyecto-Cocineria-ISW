@@ -12,13 +12,11 @@ export const IngredientBodyValidation = Joi.object({
             "string.max": "El nombre debe tener como máximo 50 caracteres.",
         }),
     tipo: Joi.string()
-        .min(3)
-        .max(50)
+        .valid("fresco", "seco", "enlatado")
+        .required()
         .messages({
-            "string.empty": "El tipo no puede estar vacío.",
-            "string.base": "El tipo debe ser de tipo string.",
-            "string.min": "El tipo debe tener como mínimo 3 caracteres.",
-            "string.max": "El tipo debe tener como máximo 50 caracteres.",
+            "any.only": "El tipo debe ser 'fresco', 'seco' o 'enlatado'.",
+            "any.required": "El tipo es obligatorio.",
         }),
     cantidad: Joi.number()
         .positive()
