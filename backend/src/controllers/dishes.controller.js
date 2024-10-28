@@ -16,6 +16,12 @@ import {
 
 import { dishBodyValidation } from "../validations/dishes.validation.js";
 
+import { 
+    handleErrorClient,
+    handleErrorServer, 
+    handleSuccess
+} from "../handlers/responseHandlers.js";
+
 export async function getDish(req, res) {
   try {
     const { id } = req.params;
