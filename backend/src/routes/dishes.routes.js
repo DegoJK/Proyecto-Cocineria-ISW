@@ -13,7 +13,7 @@ const router = Router();
 
 router.get("/find/:id", getDish).get("/all", getDishes);
 
-router.use(authenticateJwt).use(isChef);
+//router.use(authenticateJwt).use(isChef);
 
 router
   .post("/create", createDish)

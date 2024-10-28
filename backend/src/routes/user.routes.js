@@ -11,9 +11,10 @@ import {
 
 const router = Router();
 
-router
+/*router
   .use(authenticateJwt)
   .use(isAdmin);
+*/
 
 router
   .get("/", getUsers)

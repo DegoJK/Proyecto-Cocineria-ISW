@@ -25,9 +25,9 @@ const OrderDishSchema = new EntitySchema({
     },
     dish: {
       type: "many-to-one",
-      target: "platillos",
+      target: "Platillo",
       joinColumn: true,
-      inverseSide: "ordertodishes",
+      inverseSide: "orderDishes",
     },
   },
 });

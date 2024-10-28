@@ -1,14 +1,11 @@
 "use strict";
 import {
-  addDishToCart,
   createOrderService,
+  getOrderByIdService,
   getOrdersService,
 } from "../services/waiter.service.js";
 
-import {
-  getDishesService,
-  getDishService,
-} from "../services/dishes.service.js";
+import { getDishesService } from "../services/dishes.service.js";
 
 import {
   handleErrorClient,
@@ -19,6 +16,7 @@ import {
 export async function getOrders(req, res) {
   try {
     const searchType = req.query.type;
+    if (!searchType) return [null, "No se ha especificado el tipo de búsqueda"];
     const [orders, errorOrders] = await getOrdersService(searchType);
 
     if (errorOrders) return handleErrorClient(res, 404, errorOrders);
@@ -29,24 +27,15 @@ export async function getOrders(req, res) {
   }
 }
 
-export async function addDishToOrder(req, res) {
+export async function getOrderById(req, res) {
   try {
-    const { orderId, dishId, quantity } = req.body;
+    const { id } = req.params;
 
-    const [order, errorOrder] = await getOrderById(orderId);
+    const [order, errorOrder] = await getOrderByIdService(id);
+
     if (errorOrder) return handleErrorClient(res, 404, errorOrder);
 
-    const [dish, errorDish] = await getDishService(dishId);
-    if (errorDish) return handleErrorClient(res, 404, errorDish);
-
-    const [updatedOrder, errorUpdate] = await addDishToCart(
-      order,
-      dish,
-      quantity
-    );
-    if (errorUpdate) return handleErrorClient(res, 400, errorUpdate);
-
-    handleSuccess(res, 200, "Platillo agregado al carrito", updatedOrder);
+    handleSuccess(res, 200, "Orden encontrada", order);
   } catch (error) {
     handleErrorServer(res, 500, error.message);
   }

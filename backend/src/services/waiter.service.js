@@ -25,27 +25,14 @@ export async function getOrdersService(type) {
   }
 }
 
-export async function addDishToCart(order, dish, quantity) {
+export async function getOrderByIdService(id) {
   try {
-    const orderDishRepository = AppDataSource.getRepository(OrderDish);
-    let orderDish = await orderDishRepository.findOne({
-      where: { order: order, dish: dish },
-    });
-
-    if (orderDish) {
-      orderDish.quantity += quantity;
-    } else {
-      orderDish = orderDishRepository.create({
-        order: order,
-        dish: dish,
-        quantity: quantity,
-      });
-    }
-
-    await orderDishRepository.save(orderDish);
+    const orderRepository = AppDataSource.getRepository(Order);
+    const order = await orderRepository.findOne({ where: { id: id } });
+    if (!order) return [null, "Orden no encontrada"];
     return [order, null];
   } catch (error) {
-    console.error("Error al agregar platillo al carrito:", error);
+    console.error("Error al obtener la orden:", error);
     return [null, "Error interno del servidor"];
   }
 }
