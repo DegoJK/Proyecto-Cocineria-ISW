@@ -29,7 +29,14 @@ const PlatilloSchema = new EntitySchema({
         imagen: {
         type: "varchar",
         length: 255,
+        default: "https://www.cocinacaserayfacil.net/12-platos-de-comida-que-pides-a-domicilio-y-puedes-hacer-en-casa/",
         nullable: true,
+        },
+        estado: {
+        type: "varchar",
+        length: 50,
+        nullable: false,
+        default: "no disponible",
         },
         createdAt: {
         type: "timestamp with time zone",
@@ -41,6 +48,14 @@ const PlatilloSchema = new EntitySchema({
         default: () => "CURRENT_TIMESTAMP",
         onUpdate: "CURRENT_TIMESTAMP",
         nullable: false,
+        },
+    },
+    relations: {
+        Ingredient: {
+        target: "Ingredient",
+        type: "many-to-many",
+        joinTable: true,
+        cascade: true,
         },
     },
     indices: [

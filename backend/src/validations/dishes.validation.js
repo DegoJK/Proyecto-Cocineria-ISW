@@ -35,6 +35,13 @@ export const dishBodyValidation = Joi.object({
         "string.base": "La imagen debe ser de tipo string.",
         "string.uri": "La imagen debe ser una URL válida.",
         }),
+    estado: Joi.string()
+        .valid("disponible", "no disponible", "en menu")
+        .messages({
+        "string.empty": "El estado no puede estar vacío.",
+        "string.base": "El estado debe ser de tipo string.",
+        "any.only": "El estado debe ser 'disponible' o 'no disponible'.",
+        }),
     })
     .unknown(false)
     .messages({
