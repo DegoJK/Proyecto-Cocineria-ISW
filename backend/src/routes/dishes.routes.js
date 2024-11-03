@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { isChef } from "../middlewares/authorization.middleware.js";
-import { authenticateJwt } from "../middlewares/authentication.middleware.js";
+//import { isChef } from "../middlewares/authorization.middleware.js";
+//import { authenticateJwt } from "../middlewares/authentication.middleware.js";
 import { 
     createDish, 
     deleteDish, 
