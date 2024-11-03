@@ -1,0 +1,43 @@
+/* root.css o el archivo CSS correspondiente */
+
+.content {
+  padding-top: 70px; /* Igual a la altura de la barra superior */
+  /* Otros estilos... */
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #FFEBEE;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.topbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-left: 100px; /* Espacio a la izquierda */
+}
+
+.logo i {
+  font-size: 32px;
+  margin-right: 10px;
+
+}
+
+.logo h1 {
+  font-size: 24px;
+  margin: 0;
+  color: #333;
+}

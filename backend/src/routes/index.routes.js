@@ -16,5 +16,3 @@ router
     .use("/report", reportRoutes);
 
 export default router;
-
-
