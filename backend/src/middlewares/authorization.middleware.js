@@ -38,7 +38,7 @@ try {
     );
 }
 }
-
+/*
 export async function isChef(req, res, next) {
 try {
     const userRepository = AppDataSource.getRepository(User);
@@ -72,3 +72,4 @@ try {
     );
 }
 }
+*/
