@@ -4,101 +4,99 @@ import Platillo from "../entity/dishes.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 
 export async function getDishService(query) {
-    try {
-        const { id } = query;
+  try {
+    const { id } = query;
 
-        const dishRepository = AppDataSource.getRepository(Platillo);
+    const dishRepository = AppDataSource.getRepository(Platillo);
 
-        const dishFound = await dishRepository.findOne({
-            where: [{ id: id }],
-        });
+    const dishFound = await dishRepository.findOne({
+      where: [{ id: id }],
+    });
 
-        if (!dishFound) return [null, "Platillo no encontrado"];
+    if (!dishFound) return [null, "Platillo no encontrado"];
 
-        const { password, ...dishData } = dishFound;
+    const { password, ...dishData } = dishFound;
 
-        return [dishData, null];
-    } catch (error) {
-        console.error("Error al obtener el platillo:", error);
-        return [null, "Error interno del servidor"];
-    }
+    return [dishData, null];
+  } catch (error) {
+    console.error("Error al obtener el platillo:", error);
+    return [null, "Error interno del servidor"];
+  }
 }
 
 export async function getDishesService() {
-    try {
-        const dishRepository = AppDataSource.getRepository(Platillo);
+  try {
+    const dishRepository = AppDataSource.getRepository(Platillo);
 
-        // Incluye la relación con la entidad Ingredient
-        const dishes = await dishRepository.find({
-            relations: ["Ingredient"], // Carga la relación de los ingredientes
-        });
+    // Incluye la relación con la entidad Ingredient
+    const dishes = await dishRepository.find({
+      relations: ["Ingredient"], // Carga la relación de los ingredientes
+    });
 
-        if (!dishes || dishes.length === 0) return [null, "No hay platillos"];
+    if (!dishes || dishes.length === 0) return [null, "No hay platillos"];
 
-        const dishesData = dishes.map(({ ...dish }) => dish);
+    const dishesData = dishes.map(({ ...dish }) => dish);
 
-        return [dishesData, null];
-    } catch (error) {
-        console.error("Error al obtener los platillos:", error);
-        return [null, "Error interno del servidor"];
-    }
+    return [dishesData, null];
+  } catch (error) {
+    console.error("Error al obtener los platillos:", error);
+    return [null, "Error interno del servidor"];
+  }
 }
 
-
 export async function createDishService(body) {
-    try {
-        const dishRepository = AppDataSource.getRepository(Platillo);
+  try {
+    const dishRepository = AppDataSource.getRepository(Platillo);
+    console.log(dishRepository);
+    const newDish = dishRepository.create(body);
 
-        const newDish = dishRepository.create(body);
+    await dishRepository.save(newDish);
 
-        await dishRepository.save(newDish);
-
-        return [newDish, null];
-    } catch (error) {
-        console.error("Error al crear el platillo:", error);
-        return [null, "Error interno del servidor"];
-    }
+    return [newDish, null];
+  } catch (error) {
+    console.error("Error al crear el platillo:", error);
+    return [null, "Error interno del servidor"];
+  }
 }
 
 export async function updateDishService(id, body) {
-    try {
-        const dishRepository = AppDataSource.getRepository(Platillo);
+  try {
+    const dishRepository = AppDataSource.getRepository(Platillo);
 
-        const dishFound = await dishRepository.findOne({
-            where: [{ id: id }],
-        });
+    const dishFound = await dishRepository.findOne({
+      where: [{ id: id }],
+    });
 
-        if (!dishFound) return [null, "Platillo no encontrado"];
+    if (!dishFound) return [null, "Platillo no encontrado"];
 
-        await dishRepository.update(id, body);
+    await dishRepository.update(id, body);
 
-        const updatedDish = await dishRepository.findOne({
-            where: [{ id: id }],
-        });
+    const updatedDish = await dishRepository.findOne({
+      where: [{ id: id }],
+    });
 
-        return [updatedDish, null];
-    } catch (error) {
-        console.error("Error al actualizar el platillo:", error);
-        return [null, "Error interno del servidor"];
-    }
+    return [updatedDish, null];
+  } catch (error) {
+    console.error("Error al actualizar el platillo:", error);
+    return [null, "Error interno del servidor"];
+  }
 }
 
 export async function deleteDishService(id) {
-    try {
-        const dishRepository = AppDataSource.getRepository(Platillo);
+  try {
+    const dishRepository = AppDataSource.getRepository(Platillo);
 
-        const dishFound = await dishRepository.findOne({
-            where: [{ id: id }],
-        });
+    const dishFound = await dishRepository.findOne({
+      where: [{ id: id }],
+    });
 
-        if (!dishFound) return [null, "Platillo no encontrado"];
+    if (!dishFound) return [null, "Platillo no encontrado"];
 
-        await dishRepository.delete(id);
+    await dishRepository.delete(id);
 
-        return [null, null];
-    } catch (error) {
-        console.error("Error al eliminar el platillo:", error);
-        return [null, "Error interno del servidor"];
-    }
+    return [null, null];
+  } catch (error) {
+    console.error("Error al eliminar el platillo:", error);
+    return [null, "Error interno del servidor"];
+  }
 }
-
