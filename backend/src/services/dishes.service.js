@@ -28,7 +28,10 @@ export async function getDishesService() {
   try {
     const dishRepository = AppDataSource.getRepository(Platillo);
 
-    const dishes = await dishRepository.find();
+    // Incluye la relación con la entidad Ingredient
+    const dishes = await dishRepository.find({
+      relations: ["Ingredient"], // Carga la relación de los ingredientes
+    });
 
     if (!dishes || dishes.length === 0) return [null, "No hay platillos"];
 

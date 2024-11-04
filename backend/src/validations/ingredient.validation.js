@@ -13,7 +13,6 @@ export const IngredientBodyValidation = Joi.object({
         }),
     tipo: Joi.string()
         .valid("fresco", "seco", "enlatado")
-        .required()
         .messages({
             "any.only": "El tipo debe ser 'fresco', 'seco' o 'enlatado'.",
             "any.required": "El tipo es obligatorio.",

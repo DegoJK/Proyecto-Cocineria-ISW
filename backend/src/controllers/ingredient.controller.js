@@ -47,6 +47,10 @@ export async function createIngredient(req, res) {
     try {
         const { body } = req;
 
+        //transforma los parámetros "nombre" y "tipo" a minusculas
+        body.nombre = body.nombre.toLowerCase();
+        body.tipo = body.tipo.toLowerCase();
+
         const { error } = IngredientBodyValidation.validate(body);
 
         if (error) return handleErrorClient(res, 400, error.message);
@@ -66,6 +70,16 @@ export async function updateIngredient(req, res) {
         const { id } = req.params;
         const parsedId = parseInt(id, 10);  // Convierte el ID a entero para que no haya problemas con la base de datos
         const { body } = req;
+        
+        //transforma los parámetros "nombre" y "tipo" a minusculas si es que existen
+        if (body.nombre){
+            body.nombre = body.nombre.toLowerCase();
+        }
+        if (body.tipo){
+            body.tipo = body.tipo.toLowerCase();
+        }
+
+
         const { error } = IngredientBodyValidation.validate(body);
 
         if (error) return handleErrorClient(res, 400, error.message);

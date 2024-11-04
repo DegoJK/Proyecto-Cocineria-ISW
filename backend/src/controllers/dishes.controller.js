@@ -1,5 +1,5 @@
 "use strict";
-
+//peticiones
 import {
   createDishService,
   deleteDishService,
@@ -48,9 +48,8 @@ export async function createDish(req, res) {
   try {
     const { body } = req;
 
-    const { error } = dishBodyValidation.validate(body);
-
-    if (error) return handleErrorClient(res, 400, error.message);
+    //const { error } = dishBodyValidation.validate(body);//este apartado no es necesario ya que se valida en el servicio
+    //if (error) return handleErrorClient(res, 400, error.message);
 
     const [newDish, errorDish] = await createDishService(body);
 
