@@ -61,8 +61,7 @@ const PlatilloSchema = new EntitySchema({
     orderDishes: {
       type: "one-to-many",
       target: "OrderDish",
-      inverseSide: "platillos",
-      cascade: true,
+      inverseSide: "dishes", // Debe coincidir con la relación en OrderDish
     },
   },
   indices: [

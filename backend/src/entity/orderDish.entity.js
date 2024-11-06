@@ -12,22 +12,23 @@ const OrderDishSchema = new EntitySchema({
     },
     quantity: {
       type: "int",
-      default: 1,
+      nullable: false,
     },
   },
   relations: {
-    order: {
+    orders: {
       type: "many-to-one",
       target: "Order",
-      joinColumn: true,
-      inverseSide: "ordertodishes",
+      joinColumn: { name: "orderId" },
+      inverseSide: "orderDishes", // Este nombre debe coincidir con la relación en Order
       onDelete: "CASCADE",
     },
-    dish: {
+    dishes: {
       type: "many-to-one",
       target: "Platillo",
-      joinColumn: true,
-      inverseSide: "orderDishes",
+      joinColumn: { name: "platilloId" },
+      inverseSide: "orderDishes", // Este nombre debe coincidir con la relación en Platillo
+      onDelete: "CASCADE",
     },
   },
 });

@@ -3,18 +3,18 @@ import Router from "express";
 
 import {
   createOrder,
+  deleteOrder,
   getOrderById,
   getOrders,
+  updateOrderStatus,
 } from "../controllers/waiter.controller.js";
-
-import { addDishToOrder, getCart } from "../controllers/cart.controller.js";
 
 const router = Router();
 
 router.post("/createOrder", createOrder);
-router.post("/addDishToOrder", addDishToOrder);
 router.get("/getOrders", getOrders);
 router.get("/getOrderById/:id", getOrderById);
-router.get("/getCarrito", getCart);
+router.put("/updateOrderStatus/:id", updateOrderStatus);
+router.delete("/deleteOrder/:id", deleteOrder);
 
 export default router;
