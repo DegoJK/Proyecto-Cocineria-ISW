@@ -1,11 +1,11 @@
 "use strict";
 import {
   createOrderService,
+  deleteOrderService,
   getOrderByIdService,
   getOrdersService,
+  updateOrderStatusService,
 } from "../services/waiter.service.js";
-
-import { getDishesService } from "../services/dishes.service.js";
 
 import {
   handleErrorClient,
@@ -13,11 +13,38 @@ import {
   handleSuccess,
 } from "../handlers/responseHandlers.js";
 
+export async function createOrder(req, res) {
+  try {
+    const tableId = req.query.table;
+    const { dishes } = req.body;
+
+    if (!Array.isArray(dishes) || dishes.length === 0) {
+      return handleErrorClient(
+        res,
+        400,
+        "Se debe proporcionar una lista de platillos con cantidades."
+      );
+    }
+
+    const orderData = {
+      tableId,
+      dishes,
+    };
+
+    const [newOrder, errorOrder] = await createOrderService(orderData);
+    if (errorOrder) return handleErrorClient(res, 400, errorOrder);
+
+    handleSuccess(res, 201, "Orden creada", newOrder);
+  } catch (error) {
+    handleErrorServer(res, 500, error.message);
+  }
+}
+
 export async function getOrders(req, res) {
   try {
-    const searchType = req.query.type;
-    if (!searchType) return [null, "No se ha especificado el tipo de búsqueda"];
-    const [orders, errorOrders] = await getOrdersService(searchType);
+    const query = req.query;
+    if (!query) return [null, "No se ha especificado el tipo de búsqueda"];
+    const [orders, errorOrders] = await getOrdersService(query);
 
     if (errorOrders) return handleErrorClient(res, 404, errorOrders);
 
@@ -41,23 +68,34 @@ export async function getOrderById(req, res) {
   }
 }
 
-export async function createOrder(req, res) {
+export async function updateOrderStatus(req, res) {
   try {
-    const [dishes, errorDishes] = await getDishesService();
+    const { id } = req.params;
+    const { status } = req.body;
 
-    if (errorDishes) return handleErrorClient(res, 404, errorDishes);
+    if (!status) {
+      return handleErrorClient(res, 400, "Se debe proporcionar un estado.");
+    }
 
-    const tableNumber = req.query.table;
+    const [order, errorOrder] = await updateOrderStatusService(id, status);
 
-    const body = req.body;
-
-    const order = {
-      tableNumber,
-    };
-
-    const [newOrder, errorOrder] = await createOrderService(order);
     if (errorOrder) return handleErrorClient(res, 400, errorOrder);
-    handleSuccess(res, 201, "Orden creada", newOrder);
+
+    handleSuccess(res, 200, "Orden actualizada", order);
+  } catch (error) {
+    handleErrorServer(res, 500, error.message);
+  }
+}
+
+export async function deleteOrder(req, res) {
+  try {
+    const { id } = req.params;
+
+    const [order, errorOrder] = await deleteOrderService(id);
+
+    if (errorOrder) return handleErrorClient(res, 400, errorOrder);
+
+    handleSuccess(res, 200, "Orden eliminada", order);
   } catch (error) {
     handleErrorServer(res, 500, error.message);
   }

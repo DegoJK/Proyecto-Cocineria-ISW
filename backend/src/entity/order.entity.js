@@ -14,10 +14,6 @@ const OrderSchema = new EntitySchema({
       type: "int",
       generated: true,
     },
-    tableNumber: {
-      type: "int",
-      nullable: false,
-    },
     status: {
       type: "varchar",
       length: 50,
@@ -36,10 +32,15 @@ const OrderSchema = new EntitySchema({
     },
   },
   relations: {
+    table: {
+      type: "many-to-one",
+      target: "Table",
+      joinColumn: true,
+    },
     orderDishes: {
       type: "one-to-many",
       target: "OrderDish",
-      inverseSide: "order",
+      inverseSide: "orders",
       cascade: true,
     },
   },

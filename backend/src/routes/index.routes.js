@@ -6,6 +6,7 @@ import dishesRoutes from "./dishes.routes.js";
 import waiterRoutes from "./waiter.routes.js";
 import ingredientRoutes from "./ingredient.routes.js";
 import reportRoutes from "./report.routes.js";
+import tableRoutes from "./table.routes.js";
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router
   .use("/user", userRoutes)
   .use("/waiter", waiterRoutes)
   .use("/ingredient", ingredientRoutes)
-  .use("/report", reportRoutes);
+  .use("/report", reportRoutes)
+  .use("/table", tableRoutes);
 
 export default router;
