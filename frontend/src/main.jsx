@@ -7,37 +7,49 @@ import Register from '@pages/Register';
 import Error404 from '@pages/Error404';
 import Root from '@pages/Root';
 import ProtectedRoute from '@components/ProtectedRoute';
+import Ingredients from '@pages/Ingredients'; 
+import Dishes from '@pages/Dishes';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@styles/styles.css';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root/>,
-    errorElement: <Error404/>,
+    element: <Root />,
+    errorElement: <Error404 />,
     children: [
       {
         path: '/home',
-        element: <Home/>
+        element: <Home />
       },
       {
         path: '/users',
         element: (
-        <ProtectedRoute allowedRoles={['administrador']}>
-          <Users />
-        </ProtectedRoute>
+          <ProtectedRoute allowedRoles={['administrador']}>
+            <Users />
+          </ProtectedRoute>
         ),
-    }
+      },
+      {
+        path: '/ingredients', 
+        element: <Ingredients />
+      },
+      {
+        path: '/dishes', 
+        element: <Dishes />
+      }
     ]
   },
   {
     path: '/auth',
-    element: <Login/>
+    element: <Login />
   },
   {
     path: '/register',
-    element: <Register/>
+    element: <Register />
   }
-])
+]);
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <RouterProvider router={router}/>
