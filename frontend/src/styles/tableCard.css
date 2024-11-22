@@ -1,0 +1,46 @@
+.table-card {
+  background-color: #f8f9fa;
+  border: 1px solid #f8f9fa;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.table-card-link {
+  text-decoration: none;
+  color: #212529;
+}
+
+.table-card:hover {
+  background-color: #e9ecef;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, border 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.table-card-title {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.table-card-body {
+  margin-bottom: 10px;
+}
+
+.table-card-status {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.table-card-status {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+/* Cambia el color del texto a rojo cuando la mesa está ocupada */
+.status-ocupada {
+  color: red;
+}
