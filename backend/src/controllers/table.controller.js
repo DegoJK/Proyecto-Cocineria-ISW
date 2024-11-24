@@ -12,10 +12,14 @@ import {
   handleSuccess,
 } from "../handlers/responseHandlers.js";
 
+import { tableBodyValidation } from "../validations/table.validation.js";
+
 export async function createTable(req, res) {
   try {
     const body = req.body;
-    console.log(body);
+    const { error } = tableBodyValidation.validate(body);
+    if (error) return handleErrorClient(res, 400, error.details);
+
     const [newTable, errorTable] = await createTableService(body);
 
     if (errorTable) return handleErrorClient(res, 400, errorTable);
@@ -50,6 +54,26 @@ export async function updateTable(req, res) {
     if (errorTable) return handleErrorClient(res, 400, errorTable);
 
     handleSuccess(res, 200, "Mesa actualizada", updatedTable);
+  } catch (error) {
+    handleErrorServer(res, 500, error.message);
+  }
+}
+
+export async function updateTableStatus(req, res) {
+  try {
+    const { id } = req.params;
+    let { status } = req.body;
+
+    status = status.toLowerCase().trim();
+
+    const { error } = tableBodyValidation.validate({ status });
+    if (error) return handleErrorClient(res, 400, error.details);
+
+    const [updatedTable, errorTable] = await updateTableService(id, status);
+
+    if (errorTable) return handleErrorClient(res, 400, errorTable);
+
+    handleSuccess(res, 200, "Estado de la mesa actualizado", updatedTable);
   } catch (error) {
     handleErrorServer(res, 500, error.message);
   }

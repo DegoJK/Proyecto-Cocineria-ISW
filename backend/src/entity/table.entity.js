@@ -21,7 +21,7 @@ const TableSchema = new EntitySchema({
     status: {
       type: "varchar",
       length: 50,
-      default: "Disponible",
+      default: "disponible",
     },
   },
   relations: {
