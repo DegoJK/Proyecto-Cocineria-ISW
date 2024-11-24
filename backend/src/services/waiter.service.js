@@ -45,12 +45,11 @@ export async function getOrdersService(query) {
         where: { status: "Pendiente" },
         relations: ["orderDishes", "orderDishes.dishes", "table"],
       });
-    } else if (type === "all") {
+    } else {
+      //all
       orders = await orderRepository.find({
         relations: ["orderDishes", "orderDishes.dishes", "table"],
       });
-    } else {
-      return [null, "Tipo de orden no válido"];
     }
 
     if (!orders || orders.length === 0) return [null, "No hay órdenes"];
@@ -134,6 +133,26 @@ export async function deleteOrderService(id) {
     if (!order) return [null, "Orden no encontrada"];
 
     await orderRepository.remove(order);
+
+    return [order, null];
+  } catch (error) {
+    console.error("Error al obtener la orden:", error);
+    return [null, "Error interno del servidor"];
+  }
+}
+
+export async function updateTableStatusFromOrderService(id, status) {
+  try {
+    const orderRepository = AppDataSource.getRepository(Order);
+
+    const order = await orderRepository.findOne({
+      where: { id: id },
+      relations: ["table"],
+    });
+    if (!order) return [null, "Orden no encontrada"];
+
+    order.table.status = status;
+    await orderRepository.save(order);
 
     return [order, null];
   } catch (error) {
