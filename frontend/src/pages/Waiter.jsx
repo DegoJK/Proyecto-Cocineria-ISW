@@ -1,5 +1,5 @@
 import "@styles/waiter.css";
-import Card from "../../components/TablesCard";
+import Card from "../components/TablesCard.jsx";
 import useTables from "@hooks/mesas/useGetTables.jsx";
 
 const Waiter = () => {

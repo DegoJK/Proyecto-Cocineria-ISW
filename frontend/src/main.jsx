@@ -9,7 +9,8 @@ import Root from "@pages/Root";
 import ProtectedRoute from "@components/ProtectedRoute";
 import Ingredients from "@pages/Ingredients";
 import Dishes from "@pages/Dishes";
-import Waiter from "@pages/Waiter/Waiter";
+import Waiter from "@pages/Waiter";
+import Tables from "@pages/Tables";
 import DailyReport from "@pages/DailyReport";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "@styles/styles.css";
@@ -42,7 +43,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/waiter",
-        element: <Waiter />,
+        element: (
+          <ProtectedRoute allowedRoles={["mesero", "administrador"]}>
+            <Waiter />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/tables",
+        element: <Tables />,
       },
       {
         path: '/daily-report',

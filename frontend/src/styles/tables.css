@@ -1,8 +1,12 @@
-.waiter-container {
-  margin: 0%;
+.tables-main-container {
   padding: 20px;
   background-color: #ffefe5; /* Fondo cálido */
   color: #663300; /* Texto marrón oscuro */
+}
+
+.tables-title {
+  display: flex;
+  margin-bottom: 10px;
 }
 
 h1 {
@@ -24,4 +28,14 @@ p {
   padding: 10px;
   margin: 10px;
   background-color: #eedfd5;
+}
+
+.tables-button-add {
+  background-color: #663300;
+  color: #ffefe5;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 5px 5px 40px;
+  cursor: pointer;
 }
