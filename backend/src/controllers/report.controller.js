@@ -1,6 +1,5 @@
 "use strict";
-import { getDailyReportService } from "../services/report.service.js";
-import { getDishesByDateRangeService } from "../services/report.service.js";
+import { getDailyReportService, getSalesByDateRangeService } from "../services/report.service.js";
 import { handleErrorClient, handleErrorServer, handleSuccess } from "../handlers/responseHandlers.js";
 
 export async function getDailyReport(req, res) {
@@ -16,22 +15,20 @@ export async function getDailyReport(req, res) {
   }
 }
 
-export async function getDishesByDateRange(req, res) {
-    try {
-        const { startDate, endDate } = req.query;
+export async function getSalesByDateRange(req, res) {
+  try {
+    const { startDate, endDate } = req.query;
 
-        if (!startDate || !endDate) {
-            return handleErrorClient(res, 400, "Las fechas de inicio y fin son requeridas.");
-        }
-
-        const [dishes, error] = await getDishesByDateRangeService(startDate, endDate);
-
-        if (error) return handleErrorClient(res, 404, error);
-
-        handleSuccess(res, 200, "Platillos encontrados en el rango de fechas", dishes);
-    } catch (error) {
-        handleErrorServer(res, 500, error.message);
+    if (!startDate || !endDate) {
+      return handleErrorClient(res, 400, "Las fechas de inicio y fin son requeridas.");
     }
+
+    const [sales, error] = await getSalesByDateRangeService(startDate, endDate);
+
+    if (error) return handleErrorClient(res, 404, error);
+
+    handleSuccess(res, 200, "Ventas encontradas en el rango de fechas", sales);
+  } catch (error) {
+    handleErrorServer(res, 500, error.message);
+  }
 }
-
-

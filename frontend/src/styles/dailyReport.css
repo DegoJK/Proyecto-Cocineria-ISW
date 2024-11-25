@@ -7,12 +7,12 @@
   }
   
   .report-container h1 {
-    color: #003366;
+    color: #181818;
     margin-bottom: 1.5rem;
   }
   
   .report-container h2 {
-    color: #ff3d3d;
+    color: #181818;
     margin: 1rem 0;
   }
   
@@ -33,4 +33,40 @@
     background-color: #FFEBEE;
     font-weight: bold;
   }
-
+  
+  .report-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+  }
+  
+  .report-form div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .report-form label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #181818;
+  }
+  
+  .report-form input[type="date"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .report-form button {
+    padding: 0.5rem 1rem;
+    background-color: #181818;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .report-form button:hover {
+    background-color: #129b00;
+  }
