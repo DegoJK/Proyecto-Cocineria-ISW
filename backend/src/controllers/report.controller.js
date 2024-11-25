@@ -4,18 +4,16 @@ import { getDishesByDateRangeService } from "../services/report.service.js";
 import { handleErrorClient, handleErrorServer, handleSuccess } from "../handlers/responseHandlers.js";
 
 export async function getDailyReport(req, res) {
-    try {
-        const { date } = req.query;
-        const reportDate = date ? new Date(date) : new Date();
+  try {
+    const reportDate = new Date(); // Puedes ajustar esto según tus necesidades
+    const [report, error] = await getDailyReportService(reportDate);
 
-        const [report, error] = await getDailyReportService(reportDate);
+    if (error) return handleErrorClient(res, 404, error);
 
-        if (error) return handleErrorClient(res, 404, error);
-
-        handleSuccess(res, 200, "Reporte diario generado exitosamente", report);
-    } catch (error) {
-        handleErrorServer(res, 500, error.message);
-    }
+    handleSuccess(res, 200, 'Reporte diario generado exitosamente', report);
+  } catch (error) {
+    handleErrorServer(res, 500, error.message);
+  }
 }
 
 export async function getDishesByDateRange(req, res) {

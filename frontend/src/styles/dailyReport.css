@@ -1,0 +1,36 @@
+.report-container {
+    padding: 2rem;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .report-container h1 {
+    color: #003366;
+    margin-bottom: 1.5rem;
+  }
+  
+  .report-container h2 {
+    color: #ff3d3d;
+    margin: 1rem 0;
+  }
+  
+  .report-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+  }
+  
+  .report-container th,
+  .report-container td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .report-container th {
+    background-color: #FFEBEE;
+    font-weight: bold;
+  }
+
