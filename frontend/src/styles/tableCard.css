@@ -33,11 +33,19 @@
 .table-card-status {
   font-size: 1.2em;
   margin-bottom: 10px;
+  text-align: center;
 }
 
-.table-card-status {
+.table-card-delete {
   font-size: 1.2em;
   text-align: center;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #663300;
+  color: #ffefe5;
+  border: none;
+  border-radius: 5px;
+  margin: 0 5px 5px 40px;
 }
 
 /* Cambia el color del texto a rojo cuando la mesa está ocupada */

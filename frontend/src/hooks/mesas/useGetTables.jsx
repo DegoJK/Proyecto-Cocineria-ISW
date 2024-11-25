@@ -8,6 +8,7 @@ const useGetTables = () => {
     try {
       const response = await getTables();
       const formattedData = response.map((table) => ({
+        id: table.id,
         number: table.number,
         seats: table.seats,
         status: table.status,

@@ -11,3 +11,12 @@ export async function getTables() {
     return error.response.data;
   }
 }
+
+export async function deleteTable(id) {
+  try {
+    const { data } = await axios.delete(`/table/deleteTable/${id}`);
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+}

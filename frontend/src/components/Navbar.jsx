@@ -74,6 +74,15 @@ const Navbar = () => {
             <span>Usuarios</span>
           </NavLink>
         )}
+        {userRole === "administrador" && (
+          <NavLink
+            to="/tables"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            <i className="fa-solid fa-table"></i>
+            <span>Mesas</span>
+          </NavLink>
+        )}
 
         <button onClick={logoutSubmit}>
           <i className="fas fa-sign-out-alt"></i>
