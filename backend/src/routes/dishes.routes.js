@@ -22,7 +22,7 @@ router.use(authenticateJwt)
 */
 router
   .post("/create", isBossChef, createDish)
-  .put("/edit/:id", isBossChef, updateDish)
+  .patch("/edit/:id", isBossChef, updateDish)
   .delete("/delete/:id", isBossChef, deleteDish);
 
 export default router;
