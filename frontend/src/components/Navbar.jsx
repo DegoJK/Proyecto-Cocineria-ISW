@@ -56,6 +56,10 @@ const Navbar = () => {
           <i className="fas fa-utensils"></i>
           <span>Platos</span>
         </NavLink>
+        <NavLink to="/daily-report" className={({ isActive }) => (isActive ? 'active' : '')}>
+          <i className="fas fa-chart-line"></i>
+          <span>Reportes</span>
+        </NavLink>
 
         <NavLink
           to="/waiter"

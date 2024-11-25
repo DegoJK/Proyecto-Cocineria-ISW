@@ -1,15 +1,35 @@
-.dishes-container {
-    padding: 20px;
-    background-color: #ffefe5; /* Fondo cálido */
-    color: #663300; /* Texto marrón oscuro */
-  }
-  
-  h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
-  }
-  
-  p {
-    font-size: 1.2em;
-  }
-  
+.dish-heather {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  background-color: antiquewhite;
+}
+
+.dish-list {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    border-color: #e0d2c8;
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #eedfd5;
+}
+
+.dish-container {
+  border: 5px solid #583e31; /* Borde naranja */
+  padding: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: #ecc9b5; /* Fondo cálido */
+  color: #000000; /* Texto marrón oscuro */
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2em;
+}

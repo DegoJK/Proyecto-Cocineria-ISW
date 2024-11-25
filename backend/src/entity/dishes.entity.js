@@ -30,7 +30,7 @@ const PlatilloSchema = new EntitySchema({
       type: "varchar",
       length: 255,
       default:
-        "https://www.cocinacaserayfacil.net/12-platos-de-comida-que-pides-a-domicilio-y-puedes-hacer-en-casa/",
+        "https://www.cocinacaserayfacil.net/wp-content/uploads/2020/03/Platos-de-comida-que-pides-a-domicilio-y-puedes-hacer-en-casa-945x630.jpg",
       nullable: true,
     },
     estado: {
