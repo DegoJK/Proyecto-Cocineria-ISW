@@ -17,7 +17,7 @@ const OrderSchema = new EntitySchema({
     status: {
       type: "varchar",
       length: 50,
-      default: "Pendiente",
+      default: "pendiente",
     },
     createdAt: {
       type: "timestamp with time zone",
