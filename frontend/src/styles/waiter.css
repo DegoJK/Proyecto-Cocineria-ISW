@@ -1,0 +1,26 @@
+.waiter-container {
+  padding: 20px;
+  background-color: #ffefe5; /* Fondo cálido */
+  color: #663300; /* Texto marrón oscuro */
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2em;
+}
+
+.tables-container {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  border-color: #e0d2c8;
+  border-style: solid;
+  border-width: 1px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #eedfd5;
+}
