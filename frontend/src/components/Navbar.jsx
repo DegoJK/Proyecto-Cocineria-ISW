@@ -1,20 +1,20 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { logout } from '@services/auth.service.js';
-import '@styles/navbar.css';
+import { logout } from "@services/auth.service.js";
+import "@styles/navbar.css";
 import { useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(sessionStorage.getItem('usuario')) || '';
+  const user = JSON.parse(sessionStorage.getItem("usuario")) || "";
   const userRole = user?.rol;
   const [menuOpen, setMenuOpen] = useState(false);
 
   const logoutSubmit = () => {
     try {
       logout();
-      navigate('/auth'); 
+      navigate("/auth");
     } catch (error) {
-      console.error('Error al cerrar sesión:', error);
+      console.error("Error al cerrar sesión:", error);
     }
   };
 
@@ -30,20 +30,29 @@ const Navbar = () => {
       </div>
 
       {/* Sidebar */}
-      <div className={`sidebar ${menuOpen ? 'open' : ''}`}>
+      <div className={`sidebar ${menuOpen ? "open" : ""}`}>
         <header>Menú</header>
 
-        <NavLink to="/home" className={({ isActive }) => (isActive ? 'active' : '')}>
+        <NavLink
+          to="/home"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           <i className="fas fa-home"></i>
           <span>Inicio</span>
         </NavLink>
 
-        <NavLink to="/ingredients" className={({ isActive }) => (isActive ? 'active' : '')}>
+        <NavLink
+          to="/ingredients"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           <i className="fas fa-carrot"></i>
           <span>Ingredientes</span>
         </NavLink>
 
-        <NavLink to="/dishes" className={({ isActive }) => (isActive ? 'active' : '')}>
+        <NavLink
+          to="/dishes"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           <i className="fas fa-utensils"></i>
           <span>Platos</span>
         </NavLink>
@@ -52,8 +61,19 @@ const Navbar = () => {
           <span>Reportes</span>
         </NavLink>
 
-        {userRole === 'administrador' && (
-          <NavLink to="/users" className={({ isActive }) => (isActive ? 'active' : '')}>
+        <NavLink
+          to="/waiter"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <i className="fa-solid fa-wine-bottle"></i>
+          <span>Garzones</span>
+        </NavLink>
+
+        {userRole === "administrador" && (
+          <NavLink
+            to="/users"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
             <i className="fas fa-users"></i>
             <span>Usuarios</span>
           </NavLink>

@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom/client';
+import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from '@pages/Login';
 import Home from '@pages/Home';
@@ -9,56 +9,47 @@ import Root from '@pages/Root';
 import ProtectedRoute from '@components/ProtectedRoute';
 import Ingredients from '@pages/Ingredients'; 
 import Dishes from '@pages/Dishes';
-import DailyReport from '@pages/DailyReport';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@styles/styles.css';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Root />,
     errorElement: <Error404 />,
     children: [
       {
-        path: '/home',
-        element: <Home />
+        path: "/home",
+        element: <Home />,
       },
       {
-        path: '/users',
+        path: "/users",
         element: (
-          <ProtectedRoute allowedRoles={['administrador']}>
+          <ProtectedRoute allowedRoles={["administrador"]}>
             <Users />
           </ProtectedRoute>
         ),
       },
       {
-        path: '/ingredients', 
-        element: <Ingredients />
+        path: "/ingredients",
+        element: <Ingredients />,
       },
       {
         path: '/dishes', 
         element: <Dishes />
-      },
-      {
-        path: '/daily-report',
-        element: (
-          <ProtectedRoute allowedRoles={['administrador', 'BossChef']}>
-            <DailyReport />
-          </ProtectedRoute>
-        )
       }
     ]
   },
   {
-    path: '/auth',
-    element: <Login />
+    path: "/auth",
+    element: <Login />,
   },
   {
-    path: '/register',
-    element: <Register />
-  }
+    path: "/register",
+    element: <Register />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
-);
+  <RouterProvider router={router}/>
+)

@@ -1,15 +1,61 @@
 .ingredients-container {
-    padding: 20px;
-    background-color: #ffefe5;
-    color: #663300; 
-  }
-  
-  h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
-  }
-  
-  p {
-    font-size: 1.2em;
-  }
-  
+  padding: 40px;
+  background-color: #f9f9f9;
+  color: #333;
+  max-width: 100%;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+}
+
+.ingredients-list {
+  list-style-type: none;
+  display: flex;
+  padding: 0;
+  background-color: #ffffff;
+  flex-wrap: wrap;
+}
+
+.ingredient-item {
+  background-color: #ffffff;
+  margin-bottom: 15px;
+  padding: 20px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  box-shadow:  2px 4px rgba(0, 0, 0, 0.05);
+  width: 300px;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 5px;
+  white-space: nowrap;
+}
+
+.ingredient-item p {
+  margin: 5px 0;
+  font-size: 1.1em;
+}
+
+.delete-button {
+  align-self: flex-end;
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}
+
