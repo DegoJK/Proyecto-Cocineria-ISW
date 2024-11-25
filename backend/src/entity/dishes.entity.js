@@ -37,7 +37,7 @@ const PlatilloSchema = new EntitySchema({
       type: "varchar",
       length: 50,
       nullable: false,
-      default: "no disponible",
+      default: "disponible",
     },
     createdAt: {
       type: "timestamp with time zone",
