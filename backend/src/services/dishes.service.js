@@ -50,45 +50,43 @@ export async function createDishService(body) {
     const ingredientRepository = AppDataSource.getRepository(Ingredient);
     const platilloIngredientRepository = AppDataSource.getRepository(PlatilloIngredient);
 
-    // Excluir 'estado' y extraer 'platilloIngredients' del body
-    const { estado, platilloIngredients, ...bodyWithoutEstado } = body;
+    // Extrae 'ingredientes' del body
+    const { estado, ingredientes, ...bodyWithoutEstado } = body;
 
-    // Crear el platillo sin 'estado' y sin 'platilloIngredients'
+    // Crea el platillo sin 'estado' y sin 'ingredientes'
     const newDish = dishRepository.create(bodyWithoutEstado);
 
-    // Guardar el platillo para obtener su ID
+    // Guarda el platillo para obtener su ID
     const savedDish = await dishRepository.save(newDish);
 
-    // Manejar la asociación de ingredientes y cantidades
-    if (platilloIngredients && platilloIngredients.length > 0) {
-      for (const pi of platilloIngredients) {
-        const ingredientName = pi.ingredient.nombre;
-        const cantidad = pi.cantidad;
+    // Maneja la asociación de ingredientes y cantidades
+    if (ingredientes && ingredientes.length > 0) {
+      for (const item of ingredientes) {
+        const ingredientId = item.ingredient_id;
+        const cantidad = item.cantidad;
 
-        // Buscar o crear el ingrediente por nombre
-        let ingredient = await ingredientRepository.findOne({
-          where: { nombre: ingredientName },
+        // Busca el ingrediente por ID
+        const ingredient = await ingredientRepository.findOne({
+          where: { id: ingredientId },
         });
 
-        if (!ingredient) {
-          // Si el ingrediente no existe, lo creamos
-          ingredient = ingredientRepository.create({ nombre: ingredientName });
-          ingredient = await ingredientRepository.save(ingredient);
+        if (ingredient) {
+          // Crea la relación en PlatilloIngredient
+          const platilloIngredient = platilloIngredientRepository.create({
+            dish_id: savedDish.id,
+            ingredient_id: ingredient.id,
+            cantidad: cantidad,
+          });
+
+          // Guarda la relación
+          await platilloIngredientRepository.save(platilloIngredient);
+        } else {
+          console.error(`Ingrediente con ID ${ingredientId} no encontrado`);
         }
-
-        // Crear la relación PlatilloIngredient
-        const platilloIngredient = platilloIngredientRepository.create({
-          platillo: savedDish,
-          ingredient: ingredient,
-          cantidad: cantidad,
-        });
-
-        // Guardar la relación
-        await platilloIngredientRepository.save(platilloIngredient);
       }
     }
 
-    // Opcional: Recargar el platillo con las relaciones para devolver toda la información
+    // Opcional: Recarga el platillo con las relaciones para devolver toda la información
     const dishWithIngredients = await dishRepository.findOne({
       where: { id: savedDish.id },
       relations: ["platilloIngredients", "platilloIngredients.ingredient"],

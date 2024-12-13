@@ -61,18 +61,15 @@ export async function createDish(req, res) {
   }
 }
 
+
 export async function updateDish(req, res) {
   try {
     const { id } = req.params;
     const { body } = req;
 
-    const { error } = dishBodyValidation.validate(body);
-
-    if (error) return handleErrorClient(res, 400, error.message);
-
     const [updatedDish, errorDish] = await updateDishService(id, body);
 
-    if (errorDish) return handleErrorClient(res, 400, errorDish);
+    if (errorDish) return handleErrorClient(res, 404, errorDish);
 
     handleSuccess(res, 200, "Platillo actualizado", updatedDish);
   } catch (error) {

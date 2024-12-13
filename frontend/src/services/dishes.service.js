@@ -26,3 +26,12 @@ export async function createDish(data) {
         return error.response;
     }
 }
+
+export async function editDish(id, data) {
+    try {
+        const response = await axios.patch(`/dish/edit/${id}`, data);
+        return response.data.data;
+    } catch (error) {
+        return error.response;
+    }
+}

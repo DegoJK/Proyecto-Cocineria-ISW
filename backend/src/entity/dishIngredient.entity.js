@@ -6,11 +6,13 @@ const PlatilloIngredientSchema = new EntitySchema({
     name: "PlatilloIngredient",
     tableName: "platillo_ingredients",
     columns: {
-        id: {
+        dish_id: {
             type: "int",
-            primary: true,
-            generated: true,
-            unique: true,
+            primary: true, // Clave primaria compuesta (parte 1)
+        },
+        ingredient_id: {
+            type: "int",
+            primary: true, // Clave primaria compuesta (parte 2)
         },
         cantidad: {
             type: "int",
@@ -21,14 +23,22 @@ const PlatilloIngredientSchema = new EntitySchema({
         platillo: {
             target: "Platillo",
             type: "many-to-one",
-            joinColumn: true, // Crea la columna de unión en esta tabla
+            joinColumn: {
+                name: "dish_id", // Nombre de la columna en la tabla
+                referencedColumnName: "id", // Columna referenciada en la entidad Platillo
+            },
             nullable: false,
+            onDelete: "CASCADE",
         },
         ingredient: {
             target: "Ingredient",
             type: "many-to-one",
-            joinColumn: true, // Crea la columna de unión en esta tabla
+            joinColumn: {
+                name: "ingredient_id", // Nombre de la columna en la tabla
+                referencedColumnName: "id", // Columna referenciada en la entidad Ingredient
+            },
             nullable: false,
+            onDelete: "CASCADE",
         },
     },
 });
