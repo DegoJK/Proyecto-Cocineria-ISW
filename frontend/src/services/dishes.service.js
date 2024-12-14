@@ -17,3 +17,21 @@ export async function deleteDish(id) {
         return error.response;
     }
 }
+
+export async function createDish(data) {
+    try {
+        const response = await axios.post('/dish/create', data);
+        return response.data.data;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+export async function editDish(id, data) {
+    try {
+        const response = await axios.patch(`/dish/edit/${id}`, data);
+        return response.data.data;
+    } catch (error) {
+        return error.response;
+    }
+}

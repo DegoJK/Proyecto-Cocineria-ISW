@@ -78,7 +78,7 @@ export async function isBossChef(req, res, next) {
         }
         const rolUser = userFound.rol;
 
-        if (rolUser !== "BossChef" && rolUser !== "administrador") {
+        if (rolUser !== "bosschef" && rolUser !== "administrador") {
             return handleErrorClient(
                 res,
                 403,

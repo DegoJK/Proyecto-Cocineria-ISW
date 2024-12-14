@@ -1,6 +1,7 @@
 "use strict";
-
 import Platillo from "../entity/dishes.entity.js";
+import Ingredient from "../entity/ingredients.entity.js";
+import PlatilloIngredient from "../entity/dishIngredient.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 
 export async function getDishService(query) {
@@ -10,54 +11,94 @@ export async function getDishService(query) {
     const dishRepository = AppDataSource.getRepository(Platillo);
 
     const dishFound = await dishRepository.findOne({
-      where: [{ id: id }],
+      where: { id: id },
+      relations: ["platilloIngredients", "platilloIngredients.ingredient"],
     });
 
     if (!dishFound) return [null, "Platillo no encontrado"];
 
-    const { password, ...dishData } = dishFound;
-
-    return [dishData, null];
+    return [dishFound, null];
   } catch (error) {
     console.error("Error al obtener el platillo:", error);
     return [null, "Error interno del servidor"];
   }
 }
 
+
 export async function getDishesService() {
   try {
     const dishRepository = AppDataSource.getRepository(Platillo);
 
-    // Incluye la relación con la entidad Ingredient
+
     const dishes = await dishRepository.find({
-      relations: ["Ingredient"], // Carga la relación de los ingredientes
+      relations: ["platilloIngredients", "platilloIngredients.ingredient"],
     });
 
     if (!dishes || dishes.length === 0) return [null, "No hay platillos"];
 
-    const dishesData = dishes.map(({ ...dish }) => dish);
-
-    return [dishesData, null];
+    return [dishes, null];
   } catch (error) {
     console.error("Error al obtener los platillos:", error);
     return [null, "Error interno del servidor"];
   }
 }
 
+
 export async function createDishService(body) {
   try {
     const dishRepository = AppDataSource.getRepository(Platillo);
-    console.log(dishRepository);
-    const newDish = dishRepository.create(body);
+    const ingredientRepository = AppDataSource.getRepository(Ingredient);
+    const platilloIngredientRepository = AppDataSource.getRepository(PlatilloIngredient);
 
-    await dishRepository.save(newDish);
+    // Extrae 'ingredients' del body
+    const { estado, ingredients, ...bodyWithoutEstado } = body;
 
-    return [newDish, null];
+    // Crea el platillo sin 'estado' y sin 'ingredients'
+    const newDish = dishRepository.create(bodyWithoutEstado);
+
+    // Guarda el platillo para obtener su ID
+    const savedDish = await dishRepository.save(newDish);
+
+    // Maneja la asociación de ingredientes y cantidades
+    if (ingredients && ingredients.length > 0) {
+      for (const item of ingredients) {
+        const ingredientId = item.ingredient_id;
+        const cantidad = item.cantidad;
+
+        // Busca el ingrediente por ID
+        const ingredient = await ingredientRepository.findOne({
+          where: { id: ingredientId },
+        });
+
+        if (ingredient) {
+          // Crea la relación en PlatilloIngredient
+          const platilloIngredient = platilloIngredientRepository.create({
+            dish_id: savedDish.id,
+            ingredient_id: ingredient.id,
+            cantidad: cantidad,
+          });
+
+          // Guarda la relación
+          await platilloIngredientRepository.save(platilloIngredient);
+        } else {
+          console.error(`Ingrediente con ID ${ingredientId} no encontrado`);
+        }
+      }
+    }
+
+    // Opcional: Recarga el platillo con las relaciones para devolver toda la información
+    const dishWithIngredients = await dishRepository.findOne({
+      where: { id: savedDish.id },
+      relations: ["platilloIngredients", "platilloIngredients.ingredient"],
+    });
+
+    return [dishWithIngredients, null];
   } catch (error) {
     console.error("Error al crear el platillo:", error);
     return [null, "Error interno del servidor"];
   }
 }
+
 
 export async function updateDishService(id, body) {
   try {
