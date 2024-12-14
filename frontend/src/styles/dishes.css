@@ -121,3 +121,8 @@ p {
 .edit-button:hover {
   background-color: #3a7a9e;
 }
+
+.bot-container {
+  margin-bottom: 10px;
+  height: px;
+}
