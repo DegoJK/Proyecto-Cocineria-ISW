@@ -32,9 +32,15 @@ export async function getDailyReportService(reportDate) {
         const dishId = dish.id;
 
         if (!dishesSold[dishId]) {
-          dishesSold[dishId] = { dish, quantity: 0 };
+          dishesSold[dishId] = {
+            dish,
+            quantity: 0,
+            totalPrice: 0,
+          };
         }
+
         dishesSold[dishId].quantity += orderDish.quantity;
+        dishesSold[dishId].totalPrice += dish.precio * orderDish.quantity;
 
         dish.Ingredient.forEach((ingredient) => {
           const ingredientId = ingredient.id;
@@ -84,9 +90,15 @@ export async function getSalesByDateRangeService(startDate, endDate) {
         const dishId = dish.id;
 
         if (!dishesSold[dishId]) {
-          dishesSold[dishId] = { dish, quantity: 0 };
+          dishesSold[dishId] = {
+            dish,
+            quantity: 0,
+            totalPrice: 0,
+          };
         }
+
         dishesSold[dishId].quantity += orderDish.quantity;
+        dishesSold[dishId].totalPrice += dish.precio * orderDish.quantity;
 
         dish.Ingredient.forEach((ingredient) => {
           const ingredientId = ingredient.id;
