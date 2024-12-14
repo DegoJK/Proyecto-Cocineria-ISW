@@ -1,80 +1,37 @@
 import { useEffect, useState } from "react";
 import { Button, Modal, Form } from 'react-bootstrap';
-import { getIngredients } from "../services/ingredient.service.js";
-import { getDishes, deleteDish, createDish, editDish} from "../services/dishes.service.js";
+import { editDish} from "../services/dishes.service.js";
+
+import useGetDishes from '@hooks/dishes/useGetDishes';
+import useDeleteDishes from '@hooks/dishes/useDeleteDishes';
+import useDishForm from "@hooks/dishes/useDishForm.jsx";
+import useGetIngredients from "@hooks/ingredient/getIngredients.jsx";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@styles/dishes.css';
 
 export default function Dishes() {
-    const [dishes, setDishes] = useState([]);
     const [show, setShow] = useState(false);
-    const [nombre, setNombre] = useState('');
-    const [descripcion, setDescripcion] = useState('');
-    const [precio, setPrecio] = useState('');
-    const [imagen, setImagen] = useState('');
-    const [availableIngredients, setAvailableIngredients] = useState([]);
-    const [dishIngredients, setDishIngredients] = useState([]);
-
+    const { dishes, fetchDishes } = useGetDishes();//HOOK DE VER PLATILLO
+    const { handleDelete } = useDeleteDishes(fetchDishes);//HOOK DE ELIMINAR PLATILLO
+    const { ingredients, fetchIngredients } = useGetIngredients();//HOOK DE VER INGREDIENTES
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    
+    const {
+        nombre,
+        setNombre,
+        descripcion,
+        setDescripcion,
+        precio,
+        setPrecio,
+        imagen,
+        setImagen,
+        dishIngredients,
+        setDishIngredients,
+        handleSubmit,
+    } = useDishForm(fetchDishes, handleClose);
 
-    const fetchDishes = async () => {
-        try {
-        const response = await getDishes();
-        setDishes(response);
-        } catch (error) {
-        console.error('Error: ', error);
-        }
-    };
-
-    const fetchIngredients = async () => {
-        try {
-            const response = await getIngredients();
-            setAvailableIngredients(response);
-        } catch (error) {
-            console.error('Error al obtener ingredientes:', error);
-        }
-    };
-
-    const handleDelete = async (id) => {
-        try {
-            const response = await deleteDish(id);
-            console.log("Platillo eliminado",response);
-            await fetchDishes();
-        } catch (error) {
-            console.error('Error: ',error);
-        }
-    }
-
-    const handleSubmit = async () => {
-        try {
-            const ingredientes = dishIngredients.map((item) => ({
-                ingredient_id: parseInt(item.ingredientId, 10),
-                cantidad: parseFloat(item.cantidad),
-            }));
-        
-            const newDish = {
-                nombre,
-                descripcion,
-                precio: parseFloat(precio),
-                ingredientes,
-            };
-            
-            if (imagen && imagen.trim() !== '') {
-                newDish.imagen = imagen;
-            }
-            await createDish(newDish);
-            await fetchDishes();
-            handleClose();
-            setNombre('');
-            setDescripcion('');
-            setPrecio('');
-            setImagen('');
-            setDishIngredients([]);
-        } catch (error) {
-            console.error('Error al agregar platillo:', error);
-        }
-    };
 
     const handleAddToMenu = async (id) => {
         try {
@@ -86,8 +43,9 @@ export default function Dishes() {
         }
     };
 
+    //!esto es para agregar ingredientes
     const addIngredientField = () => {
-        if (dishIngredients.length < availableIngredients.length) {
+        if (dishIngredients.length < ingredients.length) {
             setDishIngredients([...dishIngredients, { ingredientId: '', cantidad: '' }]);
         } else {
             alert('No puedes agregar más ingredientes.');
@@ -108,10 +66,9 @@ export default function Dishes() {
         newDishIngredients[index].cantidad = e.target.value;
         setDishIngredients(newDishIngredients);
     };
-
+    //! ******************************
 
     useEffect(() => {
-        fetchDishes();
         fetchIngredients();
     }, []);
 
@@ -167,7 +124,7 @@ export default function Dishes() {
                 />
             </Form.Group>
             <Form.Group controlId="formIngredientes">
-            <Button onClick={addIngredientField} disabled={dishIngredients.length >= availableIngredients.length}>
+            <Button onClick={addIngredientField} disabled={dishIngredients.length >= ingredients.length}>
                 Agregar Ingrediente
             </Button>
                 
@@ -180,7 +137,7 @@ export default function Dishes() {
                     style={{ marginRight: '10px' }}
                 >
                     <option value="">Seleccione un ingrediente</option>
-                    {availableIngredients.map((ingredient) => (
+                    {ingredients.map((ingredient) => (
                         <option key={ingredient.id} value={ingredient.id}>
                             {ingredient.nombre}
                         </option>

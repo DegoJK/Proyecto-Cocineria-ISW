@@ -50,18 +50,18 @@ export async function createDishService(body) {
     const ingredientRepository = AppDataSource.getRepository(Ingredient);
     const platilloIngredientRepository = AppDataSource.getRepository(PlatilloIngredient);
 
-    // Extrae 'ingredientes' del body
-    const { estado, ingredientes, ...bodyWithoutEstado } = body;
+    // Extrae 'ingredients' del body
+    const { estado, ingredients, ...bodyWithoutEstado } = body;
 
-    // Crea el platillo sin 'estado' y sin 'ingredientes'
+    // Crea el platillo sin 'estado' y sin 'ingredients'
     const newDish = dishRepository.create(bodyWithoutEstado);
 
     // Guarda el platillo para obtener su ID
     const savedDish = await dishRepository.save(newDish);
 
     // Maneja la asociación de ingredientes y cantidades
-    if (ingredientes && ingredientes.length > 0) {
-      for (const item of ingredientes) {
+    if (ingredients && ingredients.length > 0) {
+      for (const item of ingredients) {
         const ingredientId = item.ingredient_id;
         const cantidad = item.cantidad;
 
