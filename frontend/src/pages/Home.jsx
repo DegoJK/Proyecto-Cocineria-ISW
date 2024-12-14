@@ -1,32 +1,47 @@
 import { useEffect, useState } from "react";
-import { getDishes } from "../services/dishes.service.js";
+import { getDishes , editDish} from "../services/dishes.service.js";
 import '@styles/dishes.css';
 
 const Home = () => {
-  const [dishes, setDishes] = useState([]);
+    const [dishes, setDishes] = useState([]);
 
-  const fetchDishes = async () => {
-      try {
-          const response = await getDishes();
-          setDishes(response);
-      }catch (error) {
-          console.error('Error: ', error);
-      }
-  };
+    const userData = JSON.parse(sessionStorage.getItem('usuario'));
+    const userRole = userData ? userData.rol : null;
+    
+    const menuDishes = dishes.filter((dish) => dish.estado === 'menu');
 
-  useEffect(() => {
-    fetchDishes();
-  }, []);
+    const fetchDishes = async () => {
+        try {
+            const response = await getDishes();
+            setDishes(response);
+        }catch (error) {
+            console.error('Error: ', error);
+        }
+    };
 
-  return (
+    const handleAddToMenu = async (id) => {
+        try {
+            const updatedData = { estado: 'disponible' };//!usar validacion para saber si esta disponible o no
+            await editDish(id, updatedData);
+            await fetchDishes();
+        } catch (error) {
+            console.error('Error al agregar al menú:', error.response.data);
+        }
+    };
+
+    useEffect(() => {
+        fetchDishes();
+    }, []);
+
+    return (
     <div>
         <div className="title">
         <h1>Menu del dia</h1>
         </div>
-        {dishes?.length > 0 ? (
+        {menuDishes?.length > 0 ? (
             <ul>
                 <div className="dish-list">
-                {dishes.map((dish) => (
+                {menuDishes.map((dish) => (
 
                     <div key = {dish.id}>
                         <ul>
@@ -40,10 +55,18 @@ const Home = () => {
                                     </div>
 
                                     <p>Descripcion: {dish.descripcion} </p>
-                                    <p>Estado: {dish.estado} </p>
+                                    <h3>Ingredientes:</h3>
+                                        <ul>
+                                            {dish.platilloIngredients.map((pi) => (
+                                            <li key={pi.id}>
+                                                {pi.ingredient.nombre}: {pi.cantidad}
+                                            </li>
+                                            ))}
+                                        </ul>
 
-                                    <button className="delete-button">Quitar del menu</button>
-                                    
+                                    {(userRole === "administrador" || userRole === "bosschef") && (
+                                            <button className="delete-button" onClick={() => handleAddToMenu(dish.id)}>Quitar del menu</button>
+                                    )}
                                     
                                 </div>
                         </ul>

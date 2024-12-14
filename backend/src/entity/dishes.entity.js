@@ -29,8 +29,8 @@ const PlatilloSchema = new EntitySchema({
     imagen: {
       type: "varchar",
       length: 255,
-      default:
-        "https://www.cocinacaserayfacil.net/wp-content/uploads/2020/03/Platos-de-comida-que-pides-a-domicilio-y-puedes-hacer-en-casa-945x630.jpg",
+      // eslint-disable-next-line max-len
+      default: "https://www.cocinacaserayfacil.net/wp-content/uploads/2020/03/Platos-de-comida-que-pides-a-domicilio-y-puedes-hacer-en-casa-945x630.jpg",
       nullable: true,
     },
     estado: {
@@ -52,10 +52,10 @@ const PlatilloSchema = new EntitySchema({
     },
   },
   relations: {
-    Ingredient: {
-      target: "Ingredient",
-      type: "many-to-many",
-      joinTable: true,
+    platilloIngredients: {
+      target: "PlatilloIngredient",
+      type: "one-to-many",
+      inverseSide: "platillo",
       cascade: true,
     },
     orderDishes: {
