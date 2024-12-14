@@ -3,7 +3,7 @@ import "@styles/tableCard.css";
 import useDeleteTable from "@hooks/mesas/useDeleteTables.jsx";
 import useGetTables from "@hooks/mesas/useGetTables.jsx";
 
-export const Card = ({
+export const TableCard = ({
   id,
   title = "Card Title",
   image,
@@ -49,4 +49,4 @@ export const Card = ({
   );
 };
 
-export default Card;
+export default TableCard;
