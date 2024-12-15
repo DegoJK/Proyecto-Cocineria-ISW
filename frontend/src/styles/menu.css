@@ -1,0 +1,78 @@
+.menu-container {
+  margin: 0%;
+  padding: 20px;
+  background-color: #ffefe5; /* Fondo cálido */
+  color: #663300; /* Texto marrón oscuro */
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2em;
+}
+
+.menu-title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.menu-add-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.tables-container {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  border-color: #e0d2c8;
+  border-style: solid;
+  border-width: 1px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #eedfd5;
+}
+
+.menu-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+.table-card-counter {
+  text-align: center;
+  justify-content: center;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.counter-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.counter-button:hover {
+  background-color: #0056b3;
+}
+
+.counter-value {
+  margin: 0 10px;
+  font-size: 18px;
+  font-weight: bold;
+}

@@ -5,10 +5,13 @@ const OrderDishSchema = new EntitySchema({
   name: "OrderDish",
   tableName: "ordertodishes",
   columns: {
-    id: {
+    orderId: {
       type: "int",
       primary: true,
-      generated: true,
+    },
+    platilloId: {
+      type: "int",
+      primary: true,
     },
     quantity: {
       type: "int",
@@ -17,17 +20,25 @@ const OrderDishSchema = new EntitySchema({
   },
   relations: {
     orders: {
-      type: "many-to-one",
       target: "Order",
-      joinColumn: { name: "orderId" },
+      type: "many-to-one",
+      joinColumn: {
+        name: "orderId",
+        referencedColumnName: "id",
+      },
       inverseSide: "orderDishes", // Este nombre debe coincidir con la relación en Order
+      nullable: false,
       onDelete: "CASCADE",
     },
     dishes: {
-      type: "many-to-one",
       target: "Platillo",
-      joinColumn: { name: "platilloId" },
+      type: "many-to-one",
+      joinColumn: {
+        name: "platilloId",
+        referencedColumnName: "id",
+      },
       inverseSide: "orderDishes", // Este nombre debe coincidir con la relación en Platillo
+      nullable: false,
       onDelete: "CASCADE",
     },
   },

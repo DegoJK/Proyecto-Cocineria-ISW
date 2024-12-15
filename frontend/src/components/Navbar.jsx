@@ -49,27 +49,31 @@ const Navbar = () => {
           <span>Ingredientes</span>
         </NavLink>
         {(userRole === "administrador" || userRole === "bosschef") && (
+          <NavLink
+            to="/dishes"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            <i className="fas fa-utensils"></i>
+            <span>Platos</span>
+          </NavLink>
+        )}
         <NavLink
-          to="/dishes"
+          to="/daily-report"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
-          
-          <i className="fas fa-utensils"></i>
-          <span>Platos</span>
-        </NavLink>
-        )}
-        <NavLink to="/daily-report" className={({ isActive }) => (isActive ? 'active' : '')}>
           <i className="fas fa-chart-line"></i>
           <span>Reportes</span>
         </NavLink>
 
-        <NavLink
-          to="/waiter"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          <i className="fa-solid fa-wine-bottle"></i>
-          <span>Garzones</span>
-        </NavLink>
+        {(userRole === "administrador" || userRole === "waiter") && (
+          <NavLink
+            to="/waiter"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            <i className="fa-solid fa-wine-bottle"></i>
+            <span>Garzones</span>
+          </NavLink>
+        )}
 
         {userRole === "administrador" && (
           <NavLink
