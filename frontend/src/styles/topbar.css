@@ -1,8 +1,6 @@
-/* root.css o el archivo CSS correspondiente */
-
-.content {
-  padding-top: 70px; /* Igual a la altura de la barra superior */
-  /* Otros estilos... */
+/* topbar.css */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cutive&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mea+Culpa&display=swap');.content {
+  padding-top: 70px; 
 }
 
 .topbar {
@@ -11,7 +9,7 @@
   left: 0;
   width: 100%;
   height: 70px;
-  background-color: #FFEBEE;
+  background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 2;
 }
@@ -19,7 +17,7 @@
 .topbar-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; 
   height: 100%;
   padding: 0 20px;
 }
@@ -27,17 +25,23 @@
 .logo {
   display: flex;
   align-items: center;
-  margin-left: 100px; /* Espacio a la izquierda */
+  font-family: "Cutive", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .logo i {
-  font-size: 32px;
+  font-size: 40px;
   margin-right: 10px;
-
 }
 
 .logo h1 {
-  font-size: 24px;
+  font-size: 30px;
   margin: 0;
   color: #333;
+  display: flex;
+  align-items: center;
+  line-height: 1.2;
+  position: relative;
+  top: 7px;
 }

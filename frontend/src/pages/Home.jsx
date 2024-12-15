@@ -25,7 +25,7 @@ const Home = () => {
             await editDish(id, updatedData);
             await fetchDishes();
         } catch (error) {
-            console.error('Error al agregar al menú:', error.response.data);
+            console.error('Error al agregar al menÃº:', error.response.data);
         }
     };
 

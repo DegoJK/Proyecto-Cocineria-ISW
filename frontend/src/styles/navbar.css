@@ -1,4 +1,4 @@
-/* Estilos generales */
+
 * {
 	margin: 0;
 	padding: 0;
@@ -7,23 +7,29 @@
   }
   
   :root {
-	--accent-color: #ff3d3d;
-	--gradient-color: #FBFBFB;
+	--accent-color: #f5c1a3;
+	--gradient-color: #ffa723;
   }
   
-  /* Estilos del body (opcional) */
   body {
-	background-image: linear-gradient(-45deg, #A37666 0%, #795548 100%);
-  }
+	width: 100%;
+	height: 100%;
+	--color1: #F5C1A3;
+	--color2: #A85C48;
+	background-color: var(--color1);
+	background-image: linear-gradient(45deg, var(--color2) 25%, transparent 25%, transparent 75%, var(--color2) 75%, var(--color2)), 
+					  linear-gradient(45deg, var(--color2) 25%, var(--color1) 25%, var(--color1) 75%, var(--color2) 75%, var(--color2));
+	background-size: 60px 60px;
+	background-position: 0 0, 30px 30px;  
+}
   
-  /* Estilos del menú */
   .sidebar {
 	position: fixed;
 	width: 240px;
 	left: -240px;
 	height: calc(100% - var(--topbar-height));
 	box-shadow: 8px 0 10px rgba(0, 0, 0, 0.301);
-	background-color: #FFEBEE;
+	background-color: #ffffff;
 	transition: all .5s ease;
 	overflow-y: auto;
 	margin-top: 70px
@@ -41,8 +47,8 @@
 	text-align: center;
 	background-color: #FFEBEE;
 	user-select: none;
-	font-family: 'Lato', sans-serif;
-  }
+	font-family: "Roboto Slab", serif; 
+}
   
   .sidebar a,
   .sidebar button {
@@ -54,19 +60,20 @@
 	padding-left: 30px;
 	box-sizing: border-box;
 	border-left: 5px solid transparent;
-	font-family: 'Lato', sans-serif;
+	font-family: "Roboto Slab", serif;
 	transition: all .5s ease;
 	background: none;
 	border: none;
 	cursor: pointer;
 	text-align: left;
+	text-decoration: none;
   }
   
   .sidebar a:hover,
   .sidebar button:hover,
   .sidebar a.active {
 	border-left: 5px solid var(--accent-color);
-	color: #fff;
+	color: #ffffffda;
 	background: linear-gradient(to left, var(--accent-color), var(--gradient-color));
   }
   
@@ -82,16 +89,15 @@
 	text-transform: uppercase;
   }
   
-  /* Botón del menú */
   .menu-button {
 	position: fixed;
 	top: 15px;
 	left: 15px;
 	cursor: pointer;
-	color: #212121;
+	color: #0000005b;
 	border-radius: 5px;
 	font-size: 29px;
-	background-color: #ff562236;
+	background-color: #a85b4886;
 	box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
 	  inset -7px -7px 10px 0px rgba(0,0,0,.1),
 	  3.5px 3.5px 20px 0px rgba(0,0,0,.1),
@@ -104,7 +110,6 @@
 	z-index: 1001;
   }
   
-  /* Ajustes para dispositivos móviles */
   @media (max-width: 860px) {
 	.sidebar {
 	  width: 70px;
@@ -127,16 +132,5 @@
 	}
   }
   
-  /* Estilos adicionales para enlaces específicos */
-  .sidebar a:nth-child(even).active,
-  .sidebar a:nth-child(even):hover {
-	--accent-color: #FFC107;
-	--gradient-color: #FF5722;
-  }
-  
-  .sidebar a:nth-child(odd).active,
-  .sidebar a:nth-child(odd):hover {
-	--accent-color: #FF5722;
-	--gradient-color: #FFC107;
-  }
+
   

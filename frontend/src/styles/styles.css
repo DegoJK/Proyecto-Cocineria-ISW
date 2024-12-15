@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 @import url("animations.css");
 html,
 body {
@@ -9,7 +9,10 @@ body {
 	min-width: 100%;
 	min-height: 100vh;
 	overflow-x: hidden;
-	font-family: "Montserrat", sans-serif;
+	font-family: "Roboto Slab", serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+
 }
 #root {
 	min-width: 100%;
