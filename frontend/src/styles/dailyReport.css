@@ -2,10 +2,10 @@
 .report-container {
   padding: 2rem;
   margin: 20px auto;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  max-width: 80%  /* Ancho máximo */
+  max-width: 80% 
 
 }
 
@@ -39,7 +39,7 @@
 }
 
 .report-container th {
-  background-color: #FFEBEE;
+  background-color: #a85b483f;
   font-weight: bold;
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getDailyReport, getSalesByDateRange } from '@services/report.service.js';
 import '@styles/dailyReport.css';
+import { mayusLetter } from '../utils';
 import { PieChart } from '@mui/x-charts/PieChart';
 
 const DailyReport = () => {
@@ -118,7 +119,7 @@ const DailyReport = () => {
         <tbody>
           {report.dishesSold.map(({ dish, quantity, totalPrice }, index) => (
             <tr key={index}>
-              <td>{dish.nombre}</td>
+              <td>{mayusLetter(dish.nombre)}</td>
               <td>{quantity}</td>
               <td>${dish.precio.toFixed(2)}</td>
               <td>${totalPrice.toFixed(2)}</td>
@@ -138,7 +139,7 @@ const DailyReport = () => {
         <tbody>
           {report.ingredientsUsed.map(({ ingredient, quantity }, index) => (
             <tr key={index}>
-              <td>{ingredient.nombre}</td>
+              <td>{mayusLetter(ingredient.nombre)}</td>
               <td>{quantity}</td>
             </tr>
           ))}
