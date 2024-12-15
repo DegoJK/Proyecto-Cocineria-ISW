@@ -15,15 +15,15 @@
 }
 
 .dish-list {
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 10px;
-    border-color: #806654;
-    border-style: solid;
-    border-width: 1px;
-    padding: 10px;
-    margin: 10px;
-    background-color: #e6c2ab;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  border-color: #806654;
+  border-style: solid;
+  border-width: 1px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #e6c2ab;
 }
 
 .dish-container {
@@ -49,9 +49,9 @@ p {
 
 .dish-image {
   margin: auto;
-  width:310px;
-  height:310px;
-  overflow:hidden;
+  width: 310px;
+  height: 310px;
+  overflow: hidden;
   border-radius: 8px;
 }
 
@@ -99,7 +99,7 @@ p {
   background-color: #4f6e41;
 }
 
-.centrar{
+.centrar {
   width: 110px; /* Para que no se rompa en dos líneas, y lo translade tal cual. */
   margin-left: 50%;
   transform: translateX(-50%);

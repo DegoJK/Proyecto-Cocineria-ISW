@@ -10,7 +10,7 @@ import ProtectedRoute from "@components/ProtectedRoute";
 import Ingredients from "@pages/Ingredients";
 import Dishes from "@pages/Dishes";
 import Waiter from "@pages/Waiter";
-import WaiterTables from "./pages/Menu";
+import Menu from "@pages/Menu";
 import Tables from "@pages/Tables";
 import DailyReport from "@pages/DailyReport";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -51,10 +51,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/waiter/table/:id",
+        path: "/waiter/table/:tableId",
         element: (
           <ProtectedRoute allowedRoles={["mesero", "administrador"]}>
-            <WaiterTables />
+            <Menu />
           </ProtectedRoute>
         ),
       },
