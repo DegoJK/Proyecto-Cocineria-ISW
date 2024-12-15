@@ -61,21 +61,24 @@ const Menu = () => {
 
       <div className="menu-tables-container">
         <ul className="menu-menu">
-          {dishes.map((dish) => (
-            <div key={dish.id}>
-              <DishSelector
-                id={dish.id}
-                nombre={dish.nombre}
-                precio={dish.precio}
-                imagen={dish.imagen}
-                ingredientes={dish.platilloIngredients}
-                descripcion={dish.descripcion}
-                estado={dish.estado}
-                onCounterChange={handleCounterChange}
-                reset={reset} // Pasar el estado de reinicio al DishSelector
-              />
-            </div>
-          ))}
+          {dishes.map(
+            (dish) =>
+              dish.estado === "menu" && (
+                <div key={dish.id}>
+                  <DishSelector
+                    id={dish.id}
+                    nombre={dish.nombre}
+                    precio={dish.precio}
+                    imagen={dish.imagen}
+                    ingredientes={dish.platilloIngredients}
+                    descripcion={dish.descripcion}
+                    estado={dish.estado}
+                    onCounterChange={handleCounterChange}
+                    reset={reset}
+                  />
+                </div>
+              )
+          )}
         </ul>
       </div>
     </div>
