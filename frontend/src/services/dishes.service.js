@@ -1,5 +1,15 @@
 import axios from './root.service.js';
 
+export async function getDishById(id) {
+    try {
+        const response = await axios.get(`/dish/find/${id}`);
+        return response.data.data;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+
 export async function getDishes() {
     try {
         const response = await axios.get('/dish/all');

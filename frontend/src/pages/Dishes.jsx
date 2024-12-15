@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, Modal, Form } from 'react-bootstrap';
-import { editDish} from "../services/dishes.service.js";
 
 import useGetDishes from '@hooks/dishes/useGetDishes';
 import useDeleteDishes from '@hooks/dishes/useDeleteDishes';
 import useDishForm from "@hooks/dishes/useDishForm.jsx";
 import useGetIngredients from "@hooks/ingredient/getIngredients.jsx";
+import useAddToMenu from "@hooks/dishes/useAddToMenu.jsx";
+import useEditDishes from "@hooks/dishes/useEditDishes";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@styles/dishes.css';
@@ -15,9 +16,11 @@ export default function Dishes() {
     const { dishes, fetchDishes } = useGetDishes();//HOOK DE VER PLATILLO
     const { handleDelete } = useDeleteDishes(fetchDishes);//HOOK DE ELIMINAR PLATILLO
     const { ingredients, fetchIngredients } = useGetIngredients();//HOOK DE VER INGREDIENTES
+    const { handleAddToMenu } = useAddToMenu(fetchDishes);//HOOK DE AGREGAR AL MENU
+    const { handleEditDish } = useEditDishes(fetchDishes);//HOOK DE EDITAR PLATIL
+    
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
     const {
         nombre,
         setNombre,
@@ -32,19 +35,7 @@ export default function Dishes() {
         handleSubmit,
     } = useDishForm(fetchDishes, handleClose);
 
-
-    const handleAddToMenu = async (id) => {
-        try {
-            const updatedData = { estado: 'menu' };
-            await editDish(id, updatedData);
-            await fetchDishes();
-        } catch (error) {
-            console.error('Error al agregar al menú:', error.response.data);
-        }
-    };
-
-    //!esto es para agregar ingredientes
-    const addIngredientField = () => {
+    const addIngredientField = () => {//!esto es para agregar ingredientes
         if (dishIngredients.length < ingredients.length) {
             setDishIngredients([...dishIngredients, { ingredientId: '', cantidad: '' }]);
         } else {
@@ -65,8 +56,7 @@ export default function Dishes() {
         const newDishIngredients = [...dishIngredients];
         newDishIngredients[index].cantidad = e.target.value;
         setDishIngredients(newDishIngredients);
-    };
-    //! ******************************
+    };//! ******************************
 
     useEffect(() => {
         fetchIngredients();
@@ -173,33 +163,28 @@ export default function Dishes() {
                 <ul>
                     <div className="dish-list">
                     {dishes.map((dish) => (
-
                         <div key = {dish.id}>
                             <ul>
                                 <div className="dish-container">
                                     <p>Platillo: {dish.nombre}</p>
-                                    
                                     <p>Precio: {dish.precio} </p>
-                                    
                                     <div className="dish-image">
-                                    <img src={dish.imagen} alt="imagen" />
+                                        <img src={dish.imagen} alt="imagen" />
                                     </div>
-
                                     <div className="bot-container">
-                                    <p>Descripcion: {dish.descripcion} </p>
-                                    <p>
-                                    Ingredientes:
-                                    {dish.platilloIngredients.map((pi) => (
-                                        <div key={pi.id}>
-                                        {pi.ingredient.nombre}: {pi.cantidad}
-                                        </div>
-                                    ))}
-                                    </p>
-                                    <p>Estado: {dish.estado} </p>
-                                    
-                                    <button className="onmenu-button" onClick={() => handleAddToMenu(dish.id)}>Agregar al menú</button>
-                                    <button className="edit-button">Editar</button>
-                                    <button className="delete-button" onClick={() => handleDelete(dish.id)}>Eliminar</button>
+                                        <p>Descripcion: {dish.descripcion} </p>
+                                        <p>
+                                            Ingredientes:
+                                            {dish.platilloIngredients.map((pi) => (
+                                                <div key={pi.id}>
+                                                    {pi.ingredient.nombre}: {pi.cantidad}
+                                                </div>
+                                            ))}
+                                        </p>
+                                        <p>Estado: {dish.estado} </p>
+                                        <button className="onmenu-button" onClick={() => handleAddToMenu(dish.id)}>Agregar al menú</button>
+                                        <button className="edit-button" onClick={() => handleEditDish(dish.id)}> Editar</button>
+                                        <button className="delete-button" onClick={() => handleDelete(dish.id)}>Eliminar</button>
                                     </div>
                                 </div>
                             </ul>
