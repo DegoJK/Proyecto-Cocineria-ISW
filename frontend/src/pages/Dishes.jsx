@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Button, Modal, Form } from 'react-bootstrap';
 
-import useGetDishes from '@hooks/dishes/useGetDishes';
-import useDeleteDishes from '@hooks/dishes/useDeleteDishes';
+import useGetDishes from "@hooks/dishes/useGetDishes";
+import useDeleteDishes from "@hooks/dishes/useDeleteDishes";
 import useDishForm from "@hooks/dishes/useDishForm.jsx";
 import useGetIngredients from "@hooks/ingredient/getIngredients.jsx";
 import useAddToMenu from "@hooks/dishes/useAddToMenu.jsx";
 import useEditDishes from "@hooks/dishes/useEditDishes";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@styles/dishes.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@styles/dishes.css";
 
 export default function Dishes() {
     const [show, setShow] = useState(false);
@@ -58,106 +58,119 @@ export default function Dishes() {
         setDishIngredients(newDishIngredients);
     };//! ******************************
 
-    useEffect(() => {
-        fetchIngredients();
-    }, []);
+  useEffect(() => {
+    fetchIngredients();
+  }, []);
 
-    return (
-        <div className="dishes-container">
-        <h1 className="title">Página de Platillos</h1>
-        <div className="centrar">
-            <button className="add-button" onClick={handleShow}>
-            Agregar Platillo
-            </button>
-        </div>
-        <Modal show={show} onHide={handleClose}>
+  return (
+    <div className="dishes-container">
+      <h1 className="title">Página de Platillos</h1>
+      <div className="centrar">
+        <button className="add-button" onClick={handleShow}>
+          Agregar Platillo
+        </button>
+      </div>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-            <Modal.Title>Agregar Platillo</Modal.Title>
+          <Modal.Title>Agregar Platillo</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <Form>
+          <Form>
             <Form.Group controlId="formNombre">
-                <Form.Label>Nombre del Platillo</Form.Label>
-                <Form.Control
+              <Form.Label>Nombre del Platillo</Form.Label>
+              <Form.Control
                 type="text"
                 placeholder="Ingrese el nombre"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
-                />
+              />
             </Form.Group>
             <Form.Group controlId="formDescripcion">
-                <Form.Label>Descripción</Form.Label>
-                <Form.Control
+              <Form.Label>Descripción</Form.Label>
+              <Form.Control
                 as="textarea"
                 rows={3}
                 placeholder="Ingrese una descripción"
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
-                />
+              />
             </Form.Group>
             <Form.Group controlId="formPrecio">
-                <Form.Label>Precio</Form.Label>
-                <Form.Control
+              <Form.Label>Precio</Form.Label>
+              <Form.Control
                 type="number"
                 placeholder="Ingrese el precio"
                 value={precio}
                 onChange={(e) => setPrecio(e.target.value)}
-                />
+              />
             </Form.Group>
             <Form.Group controlId="formImagen">
-                <Form.Label>Imagen</Form.Label>
-                <Form.Control
+              <Form.Label>Imagen</Form.Label>
+              <Form.Control
                 type="text"
                 placeholder="Ingrese el URL de la imagen"
                 value={imagen}
                 onChange={(e) => setImagen(e.target.value)}
-                />
+              />
             </Form.Group>
             <Form.Group controlId="formIngredientes">
-            <Button onClick={addIngredientField} disabled={dishIngredients.length >= ingredients.length}>
+              <Button
+                onClick={addIngredientField}
+                disabled={dishIngredients.length >= ingredients.length}
+              >
                 Agregar Ingrediente
-            </Button>
-                
-            {dishIngredients.map((dishIngredient, index) => (
-                <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
-                <Form.Control
+              </Button>
+
+              {dishIngredients.map((dishIngredient, index) => (
+                <div
+                  key={index}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginTop: "10px",
+                  }}
+                >
+                  <Form.Control
                     as="select"
                     value={dishIngredient.ingredientId}
                     onChange={(e) => handleIngredientChange(e, index)}
-                    style={{ marginRight: '10px' }}
-                >
+                    style={{ marginRight: "10px" }}
+                  >
                     <option value="">Seleccione un ingrediente</option>
                     {ingredients.map((ingredient) => (
-                        <option key={ingredient.id} value={ingredient.id}>
-                            {ingredient.nombre}
-                        </option>
+                      <option key={ingredient.id} value={ingredient.id}>
+                        {ingredient.nombre}
+                      </option>
                     ))}
-                </Form.Control>
-                    <Form.Control
-                        type="number"
-                        placeholder="Cantidad"
-                        value={dishIngredient.cantidad}
-                        onChange={(e) => handleQuantityChange(e, index)}
-                        style={{ width: '100px', marginRight: '10px' }}
-                        min="1"
-                    />
-                        <Button variant="danger" onClick={() => removeIngredientField(index)}>
-                            Eliminar
-                        </Button>
-                        </div>
-                        ))}
-                    </Form.Group>
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+                  </Form.Control>
+                  <Form.Control
+                    type="number"
+                    placeholder="Cantidad"
+                    value={dishIngredient.cantidad}
+                    onChange={(e) => handleQuantityChange(e, index)}
+                    style={{ width: "100px", marginRight: "10px" }}
+                    min="1"
+                  />
+                  <Button
+                    variant="danger"
+                    onClick={() => removeIngredientField(index)}
+                  >
+                    Eliminar
+                  </Button>
+                </div>
+              ))}
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
             Cerrar
-            </Button>
-            <Button variant="primary" onClick={handleSubmit}>
+          </Button>
+          <Button variant="primary" onClick={handleSubmit}>
             Guardar
-            </Button>
-            </Modal.Footer>
-        </Modal>
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
         {dishes?.length > 0 ? (
                 <ul>
@@ -183,7 +196,7 @@ export default function Dishes() {
                                         </p>
                                         <p>Estado: {dish.estado} </p>
                                         <button className="onmenu-button" onClick={() => handleAddToMenu(dish.id)}>Agregar al menú</button>
-                                        <button className="edit-button" onClick={() => handleEditDish(dish.id)}> Editar</button>
+                                        <button className="edit-button"> Editar</button>
                                         <button className="delete-button" onClick={() => handleDelete(dish.id)}>Eliminar</button>
                                     </div>
                                 </div>

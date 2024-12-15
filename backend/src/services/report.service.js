@@ -16,7 +16,12 @@ export async function getDailyReportService(reportDate) {
       where: {
         createdAt: Between(startOfDay, endOfDay),
       },
-      relations: ['orderDishes', 'orderDishes.dishes', 'orderDishes.dishes.Ingredient'],
+      relations: [
+        'orderDishes',
+        'orderDishes.dishes',
+        'orderDishes.dishes.platilloIngredients',
+        'orderDishes.dishes.platilloIngredients.ingredient',
+      ],
     });
 
     if (!orders || orders.length === 0) {
@@ -32,11 +37,18 @@ export async function getDailyReportService(reportDate) {
         const dishId = dish.id;
 
         if (!dishesSold[dishId]) {
-          dishesSold[dishId] = { dish, quantity: 0 };
+          dishesSold[dishId] = {
+            dish,
+            quantity: 0,
+            totalPrice: 0,
+          };
         }
-        dishesSold[dishId].quantity += orderDish.quantity;
 
-        dish.Ingredient.forEach((ingredient) => {
+        dishesSold[dishId].quantity += orderDish.quantity;
+        dishesSold[dishId].totalPrice += dish.precio * orderDish.quantity;
+
+        dish.platilloIngredients.forEach((platilloIngredient) => {
+          const ingredient = platilloIngredient.ingredient;
           const ingredientId = ingredient.id;
           if (!ingredientsUsed[ingredientId]) {
             ingredientsUsed[ingredientId] = { ingredient, quantity: 0 };
@@ -68,7 +80,12 @@ export async function getSalesByDateRangeService(startDate, endDate) {
       where: {
         createdAt: Between(start, end),
       },
-      relations: ['orderDishes', 'orderDishes.dishes', 'orderDishes.dishes.Ingredient'],
+      relations: [
+        'orderDishes',
+        'orderDishes.dishes',
+        'orderDishes.dishes.platilloIngredients',
+        'orderDishes.dishes.platilloIngredients.ingredient',
+      ],
     });
 
     if (!orders || orders.length === 0) {
@@ -84,16 +101,23 @@ export async function getSalesByDateRangeService(startDate, endDate) {
         const dishId = dish.id;
 
         if (!dishesSold[dishId]) {
-          dishesSold[dishId] = { dish, quantity: 0 };
+          dishesSold[dishId] = {
+            dish,
+            quantity: 0,
+            totalPrice: 0,
+          };
         }
-        dishesSold[dishId].quantity += orderDish.quantity;
 
-        dish.Ingredient.forEach((ingredient) => {
+        dishesSold[dishId].quantity += orderDish.quantity;
+        dishesSold[dishId].totalPrice += dish.precio * orderDish.quantity;
+
+        dish.platilloIngredients.forEach((platilloIngredient) => {
+          const ingredient = platilloIngredient.ingredient;
           const ingredientId = ingredient.id;
           if (!ingredientsUsed[ingredientId]) {
             ingredientsUsed[ingredientId] = { ingredient, quantity: 0 };
           }
-          ingredientsUsed[ingredientId].quantity += orderDish.quantity;
+          ingredientsUsed[ingredientId].quantity += orderDish.quantity * platilloIngredient.cantidad;
         });
       });
     });
