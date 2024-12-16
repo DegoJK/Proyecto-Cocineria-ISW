@@ -1,13 +1,19 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { logout } from "@services/auth.service.js";
 import "@styles/navbar.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const user = JSON.parse(sessionStorage.getItem("usuario")) || "";
   const userRole = user?.rol;
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Add effect to close sidebar on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   const logoutSubmit = () => {
     try {
@@ -20,7 +26,6 @@ const Navbar = () => {
 
   return (
     <div>
-      {/* Botón de menú */}
       <div className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? (
           <i className="fas fa-times" id="cancel"></i>
@@ -29,7 +34,6 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Sidebar */}
       <div className={`sidebar ${menuOpen ? "open" : ""}`}>
         <header>Menú</header>
 
@@ -48,6 +52,7 @@ const Navbar = () => {
           <i className="fas fa-carrot"></i>
           <span>Ingredientes</span>
         </NavLink>
+
         {(userRole === "administrador" || userRole === "bosschef") && (
           <NavLink
             to="/dishes"
@@ -93,6 +98,7 @@ const Navbar = () => {
             <span>Usuarios</span>
           </NavLink>
         )}
+
         {userRole === "administrador" && (
           <NavLink
             to="/tables"

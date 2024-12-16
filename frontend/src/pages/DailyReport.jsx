@@ -84,7 +84,6 @@ const DailyReport = () => {
       </form>
 
       {pieChartData.length > 0 ? (
-<<<<<<< HEAD
         <div className="chart-and-total">
           <PieChart
             series={[
@@ -115,32 +114,7 @@ const DailyReport = () => {
             <p className="total-amount">${totalSales.toFixed(2)}</p>
           </div>
         </div>
-=======
-        <PieChart
-          series={[
-            {
-              data: pieChartData,
-              innerRadius: 27,
-              outerRadius: 100,
-              paddingAngle: 5,
-              cornerRadius: 6,
-              startAngle: -110,
-              endAngle: 253,
-              cx: 150,
-              cy: 150,
-            },
-          ]}
-          slotProps={{
-            legend: {
-              labelStyle: {
-                fontWeight: 600,
-              },
-            },
-          }}
-          width={500}
-          height={300}
-        />
->>>>>>> e78c2b490d96e34eb00bb1c3004b9076bcb54531
+
       ) : (
         <p>No hay datos para mostrar en el gráfico</p>
       )}
