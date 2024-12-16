@@ -25,10 +25,6 @@ const useDishForm = (fetchDishes, handleClose) => {
             if(imagen && imagen.trim() !== ""){
                 newDish.imagen = imagen;
             }
-
-            console.log('Datos enviados:', newDish); // Verificar los datos enviados
-
-
             await createDish(newDish);
             await fetchDishes();
             handleClose();

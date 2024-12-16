@@ -13,7 +13,7 @@
 body {
   width: 100%;
   height: 100%;
-  --size: 150px; /* control the size */
+  --size: 150px; 
   --color: #d1bdbd;
 
   background: radial-gradient(
@@ -48,8 +48,6 @@ body {
   background-color: #ffffff;
   transition: all 0.5s ease;
   overflow-y: auto;
-  margin-top: 70px;
-  z-index: 2000;
 }
 
 .sidebar.open {
