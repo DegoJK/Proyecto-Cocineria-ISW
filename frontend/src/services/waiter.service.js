@@ -8,7 +8,6 @@ export async function createOrderService(dishes, mesa) {
       console.error("No se encontró el token en las cookies");
       throw new Error("No estás autenticado");
     }
-    console.log("dishes", dishes);
     const { data } = await axios.post(
       "/waiter/createOrder?table=" + mesa,
       dishes,

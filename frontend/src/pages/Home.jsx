@@ -1,62 +1,57 @@
-import useGetDishes from '@hooks/dishes/useGetDishes.jsx';
-import useAddToMenu from "@hooks/dishes/useAddToMenu.jsx";
-import '@styles/dishes.css';
+import { useEffect, useState } from "react";
+import { getDishes, editDish } from "../services/dishes.service.js";
+import MenuDishCard from "../components/MenuDishCard";
+import '@styles/home.css';
 
 const Home = () => {
-    const { dishes, fetchDishes } = useGetDishes();
-    const { handleAddToMenu } = useAddToMenu(fetchDishes);
-    const userData = JSON.parse(sessionStorage.getItem('usuario'));
-    const userRole = userData ? userData.rol : null;
-    
-    const menuDishes = dishes.filter((dish) => dish.estado === 'menu');
+  const [dishes, setDishes] = useState([]);
+  const userData = JSON.parse(sessionStorage.getItem("usuario"));
+  const userRole = userData ? userData.rol : null;
 
+  const menuDishes = dishes.filter((dish) => dish.estado === "menu");
 
-    return (
-    <div>
-        <div className="title">
-        <h1>Menu del dia</h1>
-        </div>
-        {menuDishes?.length > 0 ? (
-            <ul>
-                <div className="dish-list">
-                {menuDishes.map((dish) => (
+  const fetchDishes = async () => {
+    try {
+      const response = await getDishes();
+      setDishes(response);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
 
-                    <div key = {dish.id}>
-                        <ul>
-                        <div className="dish-container">
-                                    <p>Platillo: {dish.nombre}</p>
-                                    
-                                    <p>Precio: {dish.precio} </p>
-                                    
-                                    <div className="dish-image">
-                                    <img src={dish.imagen} alt="imagen" />
-                                    </div>
+  const handleRemoveFromMenu = async (id) => {
+    try {
+      const updatedData = { estado: "disponible" };
+      await editDish(id, updatedData);
+      await fetchDishes();
+    } catch (error) {
+      console.error("Error al quitar del menú:", error.response?.data || error.message);
+    }
+  };
 
-                                    <p>Descripcion: {dish.descripcion} </p>
-                                    <h3>Ingredientes:</h3>
-                                    <ul>
-                                        {dish.platilloIngredients.map((pi) => (
-                                        <li key={pi.id}>
-                                            {pi.ingredient.nombre}: {pi.cantidad}
-                                        </li>
-                                        ))}
-                                    </ul>
+  useEffect(() => {
+    fetchDishes();
+  }, []);
 
-                                    {(userRole === "administrador" || userRole === "bosschef") && (
-                                            <button className="delete-button" onClick={() => handleAddToMenu(dish.id)}>Quitar del menu</button>
-                                    )}
-                                    
-                                </div>
-                        </ul>
-                    </div>
-                ))}
-                </div>
-            </ul>
+  return (
+    <div className="home-container">
+      <h1 className="home-title">Menú del Día</h1>
+      <div className="dish-list">
+        {menuDishes.length > 0 ? (
+          menuDishes.map((dish) => (
+            <MenuDishCard
+              key={dish.id}
+              dish={dish}
+              userRole={userRole}
+              handleRemoveFromMenu={handleRemoveFromMenu}
+            />
+          ))
         ) : (
-            <p>No hay platillos</p>
+          <p>No hay platillos en el menú</p>
         )}
+      </div>
     </div>
-)
-}
+  );
+};
 
-export default Home
+export default Home;
