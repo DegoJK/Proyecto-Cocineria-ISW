@@ -13,6 +13,7 @@ import Waiter from "@pages/Waiter";
 import Menu from "@pages/Menu";
 import Tables from "@pages/Tables";
 import DailyReport from "@pages/DailyReport";
+import Orders from "@pages/Orders";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "@styles/styles.css";
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/dishes",
         element: <Dishes />,
+      },
+      {
+        path: "/orders",
+        element: <Orders />,
       },
       {
         path: "/waiter",

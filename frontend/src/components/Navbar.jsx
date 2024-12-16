@@ -57,13 +57,6 @@ const Navbar = () => {
             <span>Platos</span>
           </NavLink>
         )}
-        <NavLink
-          to="/daily-report"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          <i className="fas fa-chart-line"></i>
-          <span>Reportes</span>
-        </NavLink>
 
         {(userRole === "administrador" || userRole === "waiter") && (
           <NavLink
@@ -74,6 +67,22 @@ const Navbar = () => {
             <span>Garzones</span>
           </NavLink>
         )}
+
+        <NavLink
+          to="/orders"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <i className="fa-solid fa-list"></i>
+          <span>Órdenes</span>
+        </NavLink>
+
+        <NavLink
+          to="/daily-report"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <i className="fas fa-chart-line"></i>
+          <span>Reportes</span>
+        </NavLink>
 
         {userRole === "administrador" && (
           <NavLink
