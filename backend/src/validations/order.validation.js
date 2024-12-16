@@ -24,12 +24,19 @@ export const orderArrayBodyValidation = Joi.array()
 
 export const orderBodyValidation = Joi.object({
   status: Joi.string()
-    .valid("pendiente", "en preparación", "lista", "entregada", "pagada")
+    .valid(
+      "pendiente",
+      "en preparación",
+      "lista",
+      "entregada",
+      "pagada",
+      "cancelada"
+    )
     .messages({
       "string.empty": "El estado no puede estar vacío.",
       "string.base": "El estado debe ser de tipo string.",
       "any.only":
-        "El estado debe ser 'pendiente', 'en preparación', 'lista' o 'entregada'.",
+        "El estado debe ser 'pendiente', 'en preparación', 'lista', 'entregada', 'pagada' o 'cancelada'.",
     }),
 })
   .unknown(false)

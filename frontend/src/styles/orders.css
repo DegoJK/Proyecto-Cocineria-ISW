@@ -106,6 +106,31 @@ p {
   line-height: 1.5em;
 }
 
+.order-card button:hover {
+  background-color: #0056b3;
+}
+
+.order-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-card .delete {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.order-card .delete:hover {
+  background-color: #c82333;
+}
+
 /* Botón en la tarjeta */
 .order-card button {
   background-color: #007bff;
@@ -116,8 +141,4 @@ p {
   font-size: 0.9em;
   cursor: pointer;
   transition: background-color 0.2s;
-}
-
-.order-card button:hover {
-  background-color: #0056b3;
 }
