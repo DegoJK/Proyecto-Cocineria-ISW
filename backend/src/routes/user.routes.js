@@ -15,6 +15,7 @@ router
   .use(authenticateJwt)
   .use(isAdmin);
 
+
 router
   .get("/", getUsers)
   .get("/detail/", getUser)

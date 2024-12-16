@@ -1,98 +1,121 @@
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { logout } from '@services/auth.service.js';
-import '@styles/navbar.css';
-import { useState } from "react";
+import { logout } from "@services/auth.service.js";
+import "@styles/navbar.css";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const user = JSON.parse(sessionStorage.getItem('usuario')) || '';
-    const userRole = user?.rol;
-    const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const user = JSON.parse(sessionStorage.getItem("usuario")) || "";
+  const userRole = user?.rol;
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    const logoutSubmit = () => {
-        try {
-            logout();
-            navigate('/auth'); 
-        } catch (error) {
-            console.error('Error al cerrar sesión:', error);
-        }
-    };
+  // Add effect to close sidebar on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
-    const toggleMenu = () => {
-        if (!menuOpen) {
-            removeActiveClass();
-        } else {
-            addActiveClass();
-        }
-        setMenuOpen(!menuOpen);
-    };
+  const logoutSubmit = () => {
+    try {
+      logout();
+      navigate("/auth");
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
+  };
 
-    const removeActiveClass = () => {
-        const activeLinks = document.querySelectorAll('.nav-menu ul li a.active');
-        activeLinks.forEach(link => link.classList.remove('active'));
-    };
+  return (
+    <div>
+      <div className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? (
+          <i className="fas fa-times" id="cancel"></i>
+        ) : (
+          <i className="fas fa-bars" id="btn"></i>
+        )}
+      </div>
 
-    const addActiveClass = () => {
-        const links = document.querySelectorAll('.nav-menu ul li a');
-        links.forEach(link => {
-            if (link.getAttribute('href') === location.pathname) {
-                link.classList.add('active');
-            }
-        });
-    };
+      <div className={`sidebar ${menuOpen ? "open" : ""}`}>
+        <header>Menú</header>
 
-    return (
-        <nav className="navbar">
-            <div className={`nav-menu ${menuOpen ? 'activado' : ''}`}>
-                <ul>
-                    <li>
-                        <NavLink 
-                            to="/home" 
-                            onClick={() => { 
-                                setMenuOpen(false); 
-                                addActiveClass();
-                            }} 
-                            activeClassName="active"
-                        >
-                            Inicio
-                        </NavLink>
-                    </li>
-                    {userRole === 'administrador' && (
-                    <li>
-                        <NavLink 
-                            to="/users" 
-                            onClick={() => { 
-                                setMenuOpen(false); 
-                                addActiveClass();
-                            }} 
-                            activeClassName="active"
-                        >
-                            Usuarios
-                        </NavLink>
-                    </li>
-                    )}
-                    <li>
-                        <NavLink 
-                            to="/auth" 
-                            onClick={() => { 
-                                logoutSubmit(); 
-                                setMenuOpen(false); 
-                            }} 
-                            activeClassName="active"
-                        >
-                            Cerrar sesión
-                        </NavLink>
-                    </li>
-                </ul>
-            </div>
-            <div className="hamburger" onClick={toggleMenu}>
-                <span className="bar"></span>
-                <span className="bar"></span>
-                <span className="bar"></span>
-            </div>
-        </nav>
-    );
+        <NavLink
+          to="/home"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <i className="fas fa-home"></i>
+          <span>Inicio</span>
+        </NavLink>
+
+        <NavLink
+          to="/ingredients"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <i className="fas fa-carrot"></i>
+          <span>Ingredientes</span>
+        </NavLink>
+
+        {(userRole === "administrador" || userRole === "bosschef") && (
+          <NavLink
+            to="/dishes"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            <i className="fas fa-utensils"></i>
+            <span>Platos</span>
+          </NavLink>
+        )}
+
+        {(userRole === "administrador" || userRole === "waiter") && (
+          <NavLink
+            to="/waiter"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            <i className="fa-solid fa-wine-bottle"></i>
+            <span>Garzones</span>
+          </NavLink>
+        )}
+
+        <NavLink
+          to="/orders"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <i className="fa-solid fa-list"></i>
+          <span>Órdenes</span>
+        </NavLink>
+
+        <NavLink
+          to="/daily-report"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <i className="fas fa-chart-line"></i>
+          <span>Reportes</span>
+        </NavLink>
+
+        {userRole === "administrador" && (
+          <NavLink
+            to="/users"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            <i className="fas fa-users"></i>
+            <span>Usuarios</span>
+          </NavLink>
+        )}
+
+        {userRole === "administrador" && (
+          <NavLink
+            to="/tables"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            <i className="fa-solid fa-table"></i>
+            <span>Mesas</span>
+          </NavLink>
+        )}
+
+        <button onClick={logoutSubmit}>
+          <i className="fas fa-sign-out-alt"></i>
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;

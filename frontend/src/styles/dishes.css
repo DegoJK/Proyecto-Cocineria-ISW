@@ -1,0 +1,127 @@
+.dishes-container {
+  padding: 40px;
+  color: #333;
+  max-width: 100%;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dish-heather {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  background-color: antiquewhite;
+}
+
+.dish-list {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  border-color: #cecece75;
+  border-style: solid;
+  border-width: 5px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #ffffffe0;
+}
+
+.dish-container {
+  width: 350px;
+  height: 700px;
+  border-radius: 8px;
+  border: 2px solid #583e31; /* Borde naranja */
+  padding: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: #fcdecc; /* Fondo cálido */
+  color: #000000; /* Texto marrón oscuro */
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2em;
+}
+
+.dish-image {
+  margin: auto;
+  width: 310px;
+  height: 310px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.delete-button {
+  margin: auto;
+  align-self: flex-end;
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.onmenu-button {
+  margin: auto;
+  align-self: flex-end;
+  padding: 10px 20px;
+  background-color: #5fa168;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.onmenu-button:hover {
+  background-color: #3c553f;
+}
+
+.add-button {
+  align-items: center;
+  margin: auto;
+  align-self: flex-end;
+  padding: 10px 20px;
+  background-color: #6f9e61;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.add-button:hover {
+  background-color: #4f6e41;
+}
+
+.centrar {
+  width: 110px; /* Para que no se rompa en dos líneas, y lo translade tal cual. */
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.edit-button {
+  margin: 10px;
+  align-self: flex-end;
+  padding: 10px 20px;
+  background-color: #4e9ec4;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.edit-button:hover {
+  background-color: #3a7a9e;
+}
+
+.bot-container {
+  margin-bottom: 10px;
+  height: px;
+}
