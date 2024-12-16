@@ -59,3 +59,57 @@
   background-color: #c0392b;
 }
 
+.add-button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #5fa168;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.ingredient-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.ingredient-form input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.ingredient-form button {
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.ingredient-form button[type="submit"] {
+    background-color: #5fa168;
+    color: #ffffff;
+}
+
+.ingredient-form button[type="button"] {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+
+.edit-button {
+    margin-right: 10px;
+    padding: 8px px;
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #1d6fa5;
+}
