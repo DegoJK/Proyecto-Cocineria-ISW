@@ -2,6 +2,7 @@ import "@styles/tableCard.css";
 
 import useDeleteTable from "@hooks/mesas/useDeleteTables.jsx";
 import useGetTables from "@hooks/mesas/useGetTables.jsx";
+import { mayusLetter } from "../utils";
 
 export const TableCard = ({
   id,
@@ -29,10 +30,10 @@ export const TableCard = ({
         </div>
         <div
           className={`table-card-status ${
-            status === "Ocupada" ? "status-ocupada" : ""
+            status == "Ocupada" ? "status-ocupada" : ""
           }`}
         >
-          {status}
+          {mayusLetter(status)}
         </div>
         {deleteButton && (
           <button

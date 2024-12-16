@@ -31,9 +31,29 @@ p {
   border-radius: 3px;
 }
 
+.menu-back-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.menu-title-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-title-text h2 {
+  margin: 0 0 0 20px;
+}
+
 .tables-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: space-between;
   border-radius: 5px;
   border-color: #e0d2c8;
   border-style: solid;
@@ -46,22 +66,22 @@ p {
 .menu-menu {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   margin: 10px;
+  margin-top: 30px;
 }
 
 .table-card-counter {
   text-align: center;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 25px;
   border-radius: 5px;
 }
 
 .counter-button {
-  background-color: #007bff;
+  background-color: #1e88fa;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 5px 35px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 3px;
@@ -72,7 +92,7 @@ p {
 }
 
 .counter-value {
-  margin: 0 10px;
+  margin: 0 30px;
   font-size: 18px;
   font-weight: bold;
 }

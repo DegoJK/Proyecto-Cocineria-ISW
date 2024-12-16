@@ -24,7 +24,7 @@ export const orderArrayBodyValidation = Joi.array()
 
 export const orderBodyValidation = Joi.object({
   status: Joi.string()
-    .valid("pendiente", "en preparación", "lista", "entregada")
+    .valid("pendiente", "en preparación", "lista", "entregada", "pagada")
     .messages({
       "string.empty": "El estado no puede estar vacío.",
       "string.base": "El estado debe ser de tipo string.",

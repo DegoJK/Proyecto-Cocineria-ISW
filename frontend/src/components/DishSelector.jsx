@@ -1,6 +1,7 @@
 import "@styles/menu.css";
 import "@styles/dishes.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { mayusLetter } from "../utils";
 
 export const DishSelector = ({
   id,
@@ -11,14 +12,7 @@ export const DishSelector = ({
   descripcion,
   estado,
   onCounterChange,
-  reset,
 }) => {
-  useEffect(() => {
-    if (reset) {
-      setQuantity(0); // Reinicia el contador a 0
-    }
-  }, [reset]);
-
   const [quantity, setQuantity] = useState(0);
 
   const increment = () => {
@@ -50,7 +44,7 @@ export const DishSelector = ({
         <ul>
           {ingredientes.map((pi) => (
             <div key={id}>
-              {pi.ingredient.nombre}: {pi.cantidad}
+              {mayusLetter(pi.ingredient.nombre)}: {pi.cantidad}
             </div>
           ))}
         </ul>
