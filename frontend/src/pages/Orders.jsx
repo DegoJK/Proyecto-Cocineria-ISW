@@ -89,6 +89,16 @@ const Orders = () => {
                         Marcar como En Preparación
                       </button>
                     }
+                    deleteButton={
+                      <button
+                        className="delete"
+                        onClick={() =>
+                          handleChangeStatus(order.id, "cancelada")
+                        }
+                      >
+                        Eliminar
+                      </button>
+                    }
                   />
                 ))
               )}
@@ -116,6 +126,16 @@ const Orders = () => {
                         onClick={() => handleChangeStatus(order.id, "lista")}
                       >
                         Marcar como Lista
+                      </button>
+                    }
+                    deleteButton={
+                      <button
+                        className="delete"
+                        onClick={() =>
+                          handleChangeStatus(order.id, "cancelada")
+                        }
+                      >
+                        Eliminar
                       </button>
                     }
                   />
@@ -149,6 +169,16 @@ const Orders = () => {
                         Marcar como Entregada
                       </button>
                     }
+                    deleteButton={
+                      <button
+                        className="delete"
+                        onClick={() =>
+                          handleChangeStatus(order.id, "cancelada")
+                        }
+                      >
+                        Eliminar
+                      </button>
+                    }
                   />
                 ))
               )}
@@ -176,6 +206,16 @@ const Orders = () => {
                         onClick={() => handleChangeStatus(order.id, "Pagada")}
                       >
                         Marcar como Pagada
+                      </button>
+                    }
+                    deleteButton={
+                      <button
+                        className="delete"
+                        onClick={() =>
+                          handleChangeStatus(order.id, "cancelada")
+                        }
+                      >
+                        Eliminar
                       </button>
                     }
                   />

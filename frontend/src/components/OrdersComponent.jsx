@@ -6,11 +6,15 @@ const OrderComponent = ({
   status,
   orderDishes,
   button,
+  deleteButton,
 }) => {
   return (
     <div className="order-card">
       <div>
-        <h3>Orden #{orderNumber}</h3>
+        <section className="order-top">
+          <h3>Orden #{orderNumber}</h3>
+          {deleteButton}
+        </section>
         <p>Mesa: {table}</p>
         <p>Estado: {status}</p>
         <ul>

@@ -22,16 +22,22 @@ const Tables = () => {
       </div>
 
       <div className="tables-container">
-        {tables.map((table) => (
-          <Card
-            key={table.number}
-            id={table.id}
-            title={`Mesa ${table.number}`}
-            body={`Asientos ${table.seats}`}
-            status={`Estado: ${table.status}`}
-            deleteButton={true}
-          />
-        ))}
+        {tables.length === 0 ? (
+          <div className="tables-no-data">
+            <h1>No hay mesas</h1>
+          </div>
+        ) : (
+          tables.map((table) => (
+            <Card
+              key={table.number}
+              id={table.id}
+              title={`Mesa ${table.number}`}
+              body={`Asientos ${table.seats}`}
+              status={`Estado: ${table.status}`}
+              deleteButton={true}
+            />
+          ))
+        )}
       </div>
     </div>
   );
