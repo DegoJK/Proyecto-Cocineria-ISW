@@ -1,8 +1,4 @@
-
-
-
-
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getDishes, editDish } from "../services/dishes.service.js";
 import MenuDishCard from "../components/MenuDishCard";
 import '@styles/home.css';
