@@ -3,6 +3,8 @@
   padding: 20px;
   background-color: #ffefe5; /* Fondo cálido */
   color: #663300; /* Texto marrón oscuro */
+  height: 92vh;
+  overflow-y: auto;
 }
 
 h1 {
